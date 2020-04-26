@@ -16,8 +16,10 @@ $options = [
 
 try{
 	$connection = new PDO($dsn, $username, $password, $options);	
+	 // die(json_encode(array('outcome' => true)));
 }catch(PDOException $e){
 	echo $e->getMessage();
+	// die(json_encode(array('outcome' => false, 'message' => 'Unable to connect')));
 }
 
 // $connection = null;

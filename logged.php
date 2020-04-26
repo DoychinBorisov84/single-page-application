@@ -71,9 +71,9 @@ if(isset($_POST['email_login']) && isset($_POST['password_login']) && !empty($_P
 
 //Validate post-data
 function validatePostData($data) {
-	  $data = trim($data);
-	  $data = stripslashes($data);
-	  $data = htmlspecialchars($data);
+	  // $data = trim($data);
+	  // $data = stripslashes($data);
+	  // $data = htmlspecialchars($data);
   return $data;
 }
 
