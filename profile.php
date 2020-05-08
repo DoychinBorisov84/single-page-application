@@ -8,7 +8,9 @@ $user_lastName = $_SESSION['lastName'];
 
 $user_logged = $_SESSION['logged'];	
 // var_dump($user_logged);
-	$pdo_query = "SELECT logged FROM characters WHERE email=:user_email";
+	// $pdo_query = "SELECT logged FROM characters WHERE email=:user_email";
+  $pdo_query = "SELECT logged FROM users WHERE email=:user_email";
+
 	$pdo_query_request = $connection->prepare($pdo_query);
 	$pdo_query_request->execute(['user_email' => $user_email]);
 
