@@ -4,8 +4,7 @@ include 'customFunctions/db_config.php';
 
 $user_email = $_SESSION['email'];
 $user_firstName = $_SESSION['firstName'];
-$user_lastName = $_SESSION['lastName'];	
-
+$user_lastName = $_SESSION['lastName'];
 $user_logged = $_SESSION['logged'];	
 // var_dump($user_logged);
   // $pdo_query = "SELECT logged FROM characters WHERE email=:user_email";
@@ -195,7 +194,7 @@ if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged =
   $(document).on('click', '#save_btn', function(e){  
     var email_input = $('#email_edit').text();
     var firstName_input = $('#firstname_edit').text();
-    var lastName_input = $('#lastName_edit').text();
+    var lastName_input = $('#lastname_edit').text();
     $.ajax({
       data: {email: email_input,
              firstName: firstName_input,

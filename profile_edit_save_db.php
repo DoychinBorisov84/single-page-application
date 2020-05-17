@@ -28,18 +28,13 @@ $ajax_email = $_POST['email'];
 $ajax_firstName = $_POST['firstName'];
 $ajax_lastName = $_POST['lastName'];
 
-
-$sql_update = "UPDATE users SET email=:ajax_email, firstName:ajax_firstName, lastName:ajax_lastName WHERE email=:user_email";
+$sql_update = "UPDATE users SET email=:ajax_email, firstName=:ajax_firstName, lastName=:ajax_lastName WHERE email=:user_email";
 $sql_update_request = $connection->prepare($sql_update);
 $sql_update_request->execute(['ajax_email' => $ajax_email, 'ajax_firstName' => $ajax_firstName, 'ajax_lastName' => $ajax_lastName, 'user_email' => $user_email]);
 
 $_SESSION['firstName'] = $ajax_firstName;
-
-// var_dump($_SESSION);
-
-echo 'Successfully Updated';
-
-
+$_SESSION['lastName'] = $ajax_lastName;
+$_SESSION['email'] = $ajax_email;
 
 
 ?>
