@@ -8,7 +8,7 @@ $user_lastName = $_SESSION['lastName'];
 $user_logged = $_SESSION['logged'];	
 // var_dump($user_logged);
 
-	$pdo_query = "SELECT logged FROM characters WHERE email=:user_email";
+	$pdo_query = "SELECT logged FROM users WHERE email=:user_email";
 	$pdo_query_request = $connection->prepare($pdo_query);
 	$pdo_query_request->execute(['user_email' => $user_email]);
 
@@ -24,13 +24,16 @@ if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged =
 	exit();
 }
 
-$ajax_data = $_POST['name'];
+$ajax_email = $_POST['email'];
+$ajax_firstName = $_POST['firstName'];
+$ajax_lastName = $_POST['lastName'];
 
-$sql_update = "UPDATE characters SET firstName=:ajax_data WHERE email=:user_email";
+
+$sql_update = "UPDATE users SET email=:ajax_email, firstName:ajax_firstName, lastName:ajax_lastName WHERE email=:user_email";
 $sql_update_request = $connection->prepare($sql_update);
-$sql_update_request->execute(['ajax_data' => $ajax_data, 'user_email' => $user_email]);
+$sql_update_request->execute(['ajax_email' => $ajax_email, 'ajax_firstName' => $ajax_firstName, 'ajax_lastName' => $ajax_lastName, 'user_email' => $user_email]);
 
-$_SESSION['firstName'] = $ajax_data;
+$_SESSION['firstName'] = $ajax_firstName;
 
 // var_dump($_SESSION);
 

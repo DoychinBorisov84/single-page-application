@@ -113,65 +113,67 @@ if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged =
         </svg>
       </div>
       <div class="more-info">
-        <h1 contenteditable="true" class="editable" id="email_edit"><?php echo($user_email != '' ? $user_email : 'Unknown'); ?></h1>        
+        <h1 contenteditable="true" class="editable" id="email_edit"><?php echo($user_email != '' ? $user_email : 'Enter email...'); ?></h1>        
         <div class="coords">
           <span>First Name</span>
-          <span contenteditable="true" class="editable" id="firstname_edit"><?php echo($user_firstName != '' ? $user_firstName : 'Unknown'); ?></span>
+          <span contenteditable="true" class="editable" id="firstname_edit"><?php echo($user_firstName != '' ? $user_firstName : 'Enter First Name...'); ?></span>
         </div>
         <div class="coords">
           <span>Last Name</span>
-          <span contenteditable="true" class="editable" id="lastname_edit">xxxxxx</span>
+          <span contenteditable="true" class="editable" id="lastname_edit"><?php echo($user_lastName != '' ? $user_lastName : 'Enter Last Name...' ) ?></span>
         </div>
-         <div class="coords">
+         <!-- <div class="coords">
           <span>Professional Occupation</span>
           <span contenteditable="true" class="editable" id="profession_edit">xxxxxx</span>
-        </div>
-        <div class="stats">
-          <div>
-            <div class="title">Years of exp</div>
+        </div> -->
+        <!-- <div class="stats"> -->
+          <!-- <div> -->
+            <!-- <div class="title">Years of exp</div> -->
             <!-- <i class="fa fa-trophy"></i>
             <div class="value">4+</div> -->
-            <select class="browser-default custom-select">
+           <!--  <select class="browser-default custom-select">
               <option selected>Choose</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
-            </select>
-          </div>
+            </select> -->
+          <!-- </div> -->
           <!-- <div>
             <div class="title">Projects</div>
             <i class="fa fa-gamepad"></i>
             <div class="value">10+</div>
           </div> -->
-          <div>
-            <div class="title">Relocate</div>
+          <!-- <div> -->
+            <!-- <div class="title">Relocate</div> -->
             <!-- <i class="fa fa-group"></i>
             <div class="value">Yes</div> -->
             <!-- Default inline 1-->
-            <div class="custom-control custom-radio custom-control-inline">
+            <!-- <div class="custom-control custom-radio custom-control-inline">
               <input type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
               <label class="custom-control-label" for="defaultInline1">Yes</label>
-            </div>
+            </div> -->
 
             <!-- Default inline 2-->
-            <div class="custom-control custom-radio custom-control-inline">
+            <!-- <div class="custom-control custom-radio custom-control-inline">
               <input type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
               <label class="custom-control-label" for="defaultInline2">No</label>
-            </div>
+            </div> -->
 
             <!-- Default inline 3-->
-          </div>
+          <!-- </div> -->
          <!--  <div>
             <div class="title">Coffee</div>
             <i class="fa fa-coffee"></i>
             <div class="value infinity">∞</div>
           </div> -->
-        </div>
+        <!-- </div> -->
       </div>
     </div>
     <div class="general">
-      <h1><?php echo($user_firstName != '' ? $user_firstName : 'Unknown') ?></h1>
-      <p><?php echo($user_email != '' ? $user_email : 'No email'); ?></p>
+      <h1><?php echo($user_firstName != '' ? $user_firstName."'s Profile" : 'Enter name...') ?></h1>
+      <p><strong>Email:</strong> <?php echo($user_email != '' ? $user_email : 'Enter email...'); ?></p>
+      <p><strong>First Name: </strong> <?php echo($user_firstName != '' ? $user_firstName : 'Enter first name...'); ?></p>      
+      <p><strong>Last Name: </strong> <?php echo($user_lastName != '' ? $user_lastName : 'Enter last name...'); ?></p>
       <span class="more">`Hover to edit...</span>
     </div>
   </div>
@@ -191,9 +193,14 @@ if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged =
 
   //save data to mqslq-db
   $(document).on('click', '#save_btn', function(e){  
-    var test_name = $('#firstname_edit').text();
+    var email_input = $('#email_edit').text();
+    var firstName_input = $('#firstname_edit').text();
+    var lastName_input = $('#lastName_edit').text();
     $.ajax({
-      data: {name: test_name},
+      data: {email: email_input,
+             firstName: firstName_input,
+             lastName: lastName_input
+      },
       method: "POST",
       url: "profile_edit_save_db.php",
       success: function(msg){

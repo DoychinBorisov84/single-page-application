@@ -115,7 +115,7 @@ if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged =
         </svg>
       </div>
       <div class="more-info">
-        <h1><?php echo($user_firstName != '' ? $user_firstName : 'Unknown'); ?></h1>
+        <h1><?php echo($user_firstName != '' ? $user_firstName : 'Enter First Name...'); ?></h1>
         <div class="coords">
           <span>Software Developmer</span>
           <span>August 2019</span>
@@ -149,8 +149,10 @@ if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged =
       </div>
     </div>
     <div class="general">
-      <h1><?php echo($user_firstName != '' ? $user_firstName : 'Unknown') ?></h1>
-      <p><?php echo($user_email != '' ? $user_email : 'No email'); ?></p>
+      <h1><?php echo($user_firstName != '' ? $user_firstName."'s Account" : 'Enter First Name'); ?></h1>
+      <p><strong>Email:</strong> <?php echo($user_email != '' ? $user_email : 'Enter email...'); ?></p>
+      <p><strong>First Name: </strong> <?php echo($user_firstName != '' ? $user_firstName : 'Enter first name...'); ?></p>      
+      <p><strong>Last Name: </strong> <?php echo($user_lastName != '' ? $user_lastName : 'Enter last name...'); ?></p>
       <span class="more">`Hover for more...</span>
     </div>
   </div>
