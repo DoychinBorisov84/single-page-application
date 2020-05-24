@@ -557,8 +557,8 @@ $error = '';
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7" id="message-section">            
-            <h2 class="section-title mb-3">Send me a message</h2>          
-            <form method="post" action="sendEmail.php" data-aos="fade" id="formRegister">
+            <h2 class="section-title mb-3">Send me(you in mailtrap.io) a message</h2>          
+            <form method="post" action="sendEmail.php" data-aos="fade" id="sendEmail">
               <h5 id="message_info" style="color:red; font-weight: bold"></h5>              
               <div class="form-group row">
                 <div class="col-md-12">

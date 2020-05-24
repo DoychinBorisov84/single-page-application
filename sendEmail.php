@@ -39,7 +39,7 @@ if(isset($_POST['subject']) && isset($_POST['textarea']) && !empty($_POST['subje
 
 	    //Recipients
 	    $mail->setFrom($email, $firstName);	// $email will be the same as the $mail since it's for testing purposes via myAccount-google 
-	    $mail->addAddress('doichinborisov84@gmail.com');     // Add a recipient	    
+	    $mail->addAddress('______@gmail.com');     // Add a recipient	    
 	    $mail->addReplyTo($email, $firstName);
 
 	    // Content
@@ -56,7 +56,8 @@ if(isset($_POST['subject']) && isset($_POST['textarea']) && !empty($_POST['subje
 	}catch (Exception $e) {
  	 	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 	}
-}else{	
+}else{
+	// Reset the password case?
 	header("Location: index.php");
 	exit();
 }

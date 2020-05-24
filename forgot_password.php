@@ -23,10 +23,11 @@
 <div id="forgotten-container">
 <h1>Forgotten ?</h1>  
 
-<form>
+<form method="post" action="sendEmail.php">
 	<input type="email" name="email" placeholder="E-mail">
-	<a href="#" class="orange-btn">Get new password</a>
+	<!-- <a href="#" class="orange-btn">Get new password</a> -->
 	<a href="index.php" class="green-btn">Home</a>    
+    <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Reset passowrd">
 </form>
 </div>  
 

@@ -9,13 +9,14 @@ $user_lastName = $_SESSION['lastName'];
 $user_logged = $_SESSION['logged'];	
 // var_dump($user_logged);
 	// $pdo_query = "SELECT logged FROM characters WHERE email=:user_email";
-  $pdo_query = "SELECT logged FROM users WHERE email=:user_email";
+  $pdo_query = "SELECT logged, updated_at FROM users WHERE email=:user_email";
 
 	$pdo_query_request = $connection->prepare($pdo_query);
-	$pdo_query_request->execute(['user_email' => $user_email]);
+	$pdo_query_request->execute([':user_email' => $user_email]);
 
 	$col_logged_assoc = $pdo_query_request->fetch(PDO::FETCH_ASSOC);
 	$cell_logged = $col_logged_assoc['logged'];
+  $cell_updated_at = $col_logged_assoc['updated_at'];
 
 // Compare the session vs DB record
 if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged == NULL){
@@ -116,7 +117,11 @@ if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged =
       </div>
       <div class="more-info">
         <h1><?php echo($user_firstName != '' ? $user_firstName : 'Enter First Name...'); ?></h1>
-        <div class="coords">
+         <div class="coords">
+          <span>Last Profile Update: </span>
+          <span style="font-weight:bold;color:purple"><?php echo ($cell_updated_at != '' ? $cell_updated_at : 'Unknown Time...') ?></span>
+        </div>
+        <!-- <div class="coords">
           <span>Software Developmer</span>
           <span>August 2019</span>
         </div>

@@ -10,7 +10,7 @@ $user_logged = $_SESSION['logged'];
   // $pdo_query = "SELECT logged FROM characters WHERE email=:user_email";
 	$pdo_query = "SELECT logged FROM users WHERE email=:user_email";
 	$pdo_query_request = $connection->prepare($pdo_query);
-	$pdo_query_request->execute(['user_email' => $user_email]);
+	$pdo_query_request->execute([':user_email' => $user_email]);
 
 	$col_logged_assoc = $pdo_query_request->fetch(PDO::FETCH_ASSOC);
 	$cell_logged = $col_logged_assoc['logged'];
