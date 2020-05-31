@@ -2,7 +2,7 @@
 
 // Credentials for the Database
 $username = 'root';
-$password = 'root!Admin1';
+$password = 'root';
 $database = 'single_page_application';
 $host = 'localhost';
 $dsn = "mysql:host=$host;dbname=$database";
@@ -34,6 +34,7 @@ $admin_pass = password_hash('admin1', PASSWORD_DEFAULT);
 	  email VARCHAR(40) NOT NULL,
 	  logged VARCHAR(50),
 	  password VARCHAR(99) NOT NULL,
+	  reset_string VARCHAR(55),
 	  created_at VARCHAR(30),
 	  updated_at VARCHAR(30)
   );

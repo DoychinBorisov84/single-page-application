@@ -30,6 +30,12 @@ $error = '';
     case 'message_sent';
       $error = 'Message sent';
       break;
+    case 'reset_password';
+      $error = 'Check your email, and reset the password';
+      break;
+    case 'mailNotFound';
+      $error = 'Not existing email, please check again';
+      break;
     default: 
         $error = '';
   }
