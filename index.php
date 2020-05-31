@@ -507,59 +507,92 @@ $error = '';
 
 
 <?php if(!isset($_SESSION['logged']) && empty($_SESSION['logged'])){
+      if(!isset($_GET['reset_password'])){
         echo '<div class="site-section bg-light" id="contact-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-7">            
-            <h2 class="section-title mb-3">Register as Super Hero</h2>
-            <form method="post" action="register.php" data-aos="fade" id="formRegister">
-            <h5 id="register_info"></h5>
-              <div class="form-group row">
-                <div class="col-md-6 mb-3 mb-lg-0">
-                  <input type="text" class="form-control" placeholder="First name" id="firstName" name="firstName" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="Last name" id="lastName" name="lastName" required>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="email" class="form-control" placeholder="Email" id="email_reg" name="email_reg" required>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="password" class="form-control" placeholder="Password" id="password_reg" name="password_reg" required>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">                
-                  <input type="password" class="form-control" placeholder="Re Password" id="repassword" name="repassword" required>
-                </div>
-              </div>
-                   <span id="message"></span>                 
-              
-                <!-- <div class="form-group row">
-                  <div class="col-md-12">
-                    <textarea class="form-control" cols="30" rows="10" placeholder="Register and send me a message..." id="textarea" name="textarea" disabled></textarea>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-7">            
+              <h2 class="section-title mb-3">Register as Super Hero</h2>
+              <form method="post" action="register.php" data-aos="fade" id="formRegister">
+              <h5 id="register_info"></h5>
+                <div class="form-group row">
+                  <div class="col-md-6 mb-3 mb-lg-0">
+                    <input type="text" class="form-control" placeholder="First name" id="firstName" name="firstName" required>
                   </div>
-                </div>     -->         
-              
-
-              <div class="form-group row">
-                <div class="col-md-6">                  
-                  <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Register">
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Last name" id="lastName" name="lastName" required>
+                  </div>
                 </div>
-              </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <input type="email" class="form-control" placeholder="Email" id="email_reg" name="email_reg" required>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <input type="password" class="form-control" placeholder="Password" id="password_reg" name="password_reg" required>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">                
+                    <input type="password" class="form-control" placeholder="Re Password" id="repassword" name="repassword" required>
+                  </div>
+                </div>
+                     <span id="message"></span>                 
+                
+                  <!-- <div class="form-group row">
+                    <div class="col-md-12">
+                      <textarea class="form-control" cols="30" rows="10" placeholder="Register and send me a message..." id="textarea" name="textarea" disabled></textarea>
+                    </div>
+                  </div>     -->         
+                
 
-            </form>
+                <div class="form-group row">
+                  <div class="col-md-6">                  
+                    <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Register">
+                  </div>
+                </div>
+
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </div>';
-        }else{
-        //echo 'Logged'; //only the message part here, and pass the data for the user automatically
-         echo '<div class="site-section bg-light" id="contact-section">
+      </div>';
+      }else{
+          echo '<div class="site-section bg-light" id="contact-section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-7">            
+              <h2 class="section-title mb-3">Reset your password</h2>
+              <form method="post" action="reset_password.php" data-aos="fade" id="formRegister">
+              <h5 id="reset_info"></h5>                
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <input type="password" class="form-control" placeholder="New Password" id="resetpassword" name="password_reset" required>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">                
+                    <input type="password" class="form-control" placeholder="Re-type New Password" id="reresetpassword" name="reresetpassword" required>
+                  </div>
+                </div>
+                     <span id="message"></span>
+
+                <div class="form-group row">
+                  <div class="col-md-6">                  
+                    <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Reset password">
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>';
+      }
+    }else{
+    //echo 'Logged'; //only the message part here, and pass the data for the user automatically
+     echo '<div class="site-section bg-light" id="contact-section">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-7" id="message-section">            

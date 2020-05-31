@@ -71,7 +71,7 @@ if($sql_res['email'] != ''){
 	    $mail->Body    = '<html>
 	    					<body>
 	    						<p>Click the link to reset your password:</p>
-	    						<a href="http://single-page-application.lan/index.php?reset_password="'.$reset_string.'">Reset Password</a>
+	    						<a href="http://single-page-application.lan/index.php?reset_password='.$reset_string.'">Reset Password</a>
 	    					</body>
 	    					</html>
 	    ';
