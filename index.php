@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
 if(isset($_GET['error']) && !empty($_GET['error'])){
 $errorPost = $_GET['error'];
 $error = '';
@@ -148,6 +149,7 @@ $error = '';
                   <form action="logged.php" method="post" class="form-box" id="formLogin">
                     <h5 id="login_info"></h5>
                     <h3 class="h4 text-black mb-4">Sign In</h3>
+                    <span id="pass_reset" style="color:red;display:none;">Password Changed, please login</span>
                     <div class="form-group">
                       <input type="email" class="form-control" placeholder="Email" id="email_login" name="email_login" required>
                     </div>
@@ -158,6 +160,7 @@ $error = '';
                       <input type="submit" class="btn btn-primary btn-pill" value="Sign up" id="submit"> 
                     <a href="forgot_password.php" class="btn btn-link" value="Forgot password" id="forgot_pass">Forgot password</a>
                     </div>
+
                   </form>                  
                 </div>';
                 }else{
@@ -559,6 +562,7 @@ $error = '';
         </div>
       </div>';
       }else{
+      $reset_password = $_GET['reset_password'] != '' ? $_GET['reset_password'] : '';        
           echo '<div class="site-section bg-light" id="contact-section">
         <div class="container">
           <div class="row justify-content-center">
@@ -568,7 +572,7 @@ $error = '';
               <h5 id="reset_info"></h5>                
                 <div class="form-group row">
                   <div class="col-md-12">
-                    <input type="password" class="form-control" placeholder="New Password" id="resetpassword" name="password_reset" required>
+                    <input type="password" class="form-control" placeholder="New Password" id="resetpassword" name="resetpassword" required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -576,7 +580,8 @@ $error = '';
                     <input type="password" class="form-control" placeholder="Re-type New Password" id="reresetpassword" name="reresetpassword" required>
                   </div>
                 </div>
-                     <span id="message"></span>
+                <span id="message"></span>
+                <input type="hidden" name="reset_password" value="'.$reset_password.'">
 
                 <div class="form-group row">
                   <div class="col-md-6">                  
@@ -693,6 +698,8 @@ $error = '';
   <script>
     $(document).ready(function(){
       var error = '<?php echo $error; ?>';  // get the $_GET param if failed login
+      var password_changed = '<?php echo $password_changed; ?>';
+
    
       //add the text to the empty input-field for the error message
       if(error || error.length !== 0 ){
@@ -709,6 +716,10 @@ $error = '';
           //user has error for access/sign via the form
           $('#login_info').text(error);
         }        
+      }
+
+      if(password_changed == 'success'){
+        $('#pass_reset').css('display', 'block');
       }
 
 

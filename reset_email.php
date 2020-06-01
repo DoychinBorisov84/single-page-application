@@ -30,7 +30,9 @@ include 'customFunctions/db_config.php';
 $mail = new PHPMailer(true);
 
 //Form validation
-if($sql_res['email'] != ''){	
+if($sql_res['email'] != ''){
+	$_SESSION['user_email'] = $sql_res['email']	;
+	// var_dump($_SESSION); die();
 	$email_shuffle = str_shuffle($email);
 	$email_shuffle = str_replace('@', '', $email_shuffle);
 	$curr_unix_time = time();
@@ -71,7 +73,7 @@ if($sql_res['email'] != ''){
 	    $mail->Body    = '<html>
 	    					<body>
 	    						<p>Click the link to reset your password:</p>
-	    						<a href="http://single-page-application.lan/index.php?reset_password='.$reset_string.'">Reset Password</a>
+	    						<a href="http://single-page-application.lan/index.php?reset_password='.$reset_string.'#contact-section">Reset Password</a>
 	    					</body>
 	    					</html>
 	    ';
