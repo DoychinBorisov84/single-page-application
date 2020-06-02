@@ -14,7 +14,7 @@ if(isset($_POST['email_login']) && isset($_POST['password_login']) && !empty($_P
 
 	$user_email_request = $connection->prepare($user_email_query);
 	$user_email_request->execute(['email_login' => $email_login]);
-
+// var_dump($user_email_request->rowCount()); die();
 	//Have only 1 email existing
 	if($user_email_request->rowCount() == '1'){
 		//get the pass for that email
@@ -26,9 +26,9 @@ if(isset($_POST['email_login']) && isset($_POST['password_login']) && !empty($_P
 
 		if($user_password_request->rowCount() == '1'){			
 			$row_user_pass = $user_password_request->fetch(PDO::FETCH_ASSOC);
-
+// var_dump($row_user_pass); die();
 			$user_password_dehashed = password_verify($password_login, $row_user_pass['password']); // verify the pass
-
+			// var_dump($row_user_pass['password']); die();
 			if($user_password_dehashed){
 				//Get all the data from the DB for the user
 				// $user_data_query = "SELECT * FROM characters WHERE email=:email_login";
