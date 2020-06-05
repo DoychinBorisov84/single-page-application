@@ -568,7 +568,7 @@ $error = '';
           <div class="row justify-content-center">
             <div class="col-md-7">            
               <h2 class="section-title mb-3">Reset your password</h2>
-              <form method="post" action="reset_password.php" data-aos="fade" id="formRegister">
+              <form method="post" action="reset_password.php" data-aos="fade" id="formReset">
               <h5 id="reset_info"></h5>                
                 <div class="form-group row">
                   <div class="col-md-12">
@@ -753,12 +753,53 @@ $error = '';
       });
 
       //Password vs repassword
+      var register_check = false;
       $('#password_reg, #repassword').on('keyup', function () {
         if ($('#password_reg').val() == $('#repassword').val()) {
-          $('#message').html('').css('color', 'red');          
-        } else 
-          // $('#message').show();
+          if($('#password_reg').val().length < 6){
+            $('#message').html('Password must be at least 6 characters').css('color', 'red');
+            register_check = false;
+          }else{
+           $('#message').html('').css('color', '');
+           register_check = true;
+          }
+          // $('#message').html('').css('color', '');          
+        } else {
+          register_check = false;
           $('#message').html('Passwords don"t match').css('color', 'red');
+        }
+      });
+
+       $('#formRegister').submit(function(event){
+        if(register_check == false){
+          event.preventDefault();
+        }
+      });
+
+
+
+      //ResetPassword vs ReResetpassword
+      var reset_check = false;
+      $('#resetpassword, #reresetpassword').on('keyup', function () {
+        if ($('#resetpassword').val() == $('#reresetpassword').val()) {
+          if($('#resetpassword').val().length < 6){
+            $('#message').html('Password must be at least 6 characters').css('color', 'red');
+            reset_check = false;
+          }else{
+            $('#message').html('').css('color', '');          
+          reset_check = true;  
+          }          
+        } else{ 
+          // $('#message').show();
+          reset_check = false;
+          $('#message').html('Passwords don"t match').css('color', 'red');
+        }
+      });
+
+      $('#formReset').submit(function(event){
+        if(reset_check == false){
+          event.preventDefault();
+        }
       });
 
     });//document ready
