@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+include 'customFunctions/db_config.php';
+include 'customFunctions/functions.php';
+
 //Get the session for the current registered/logged user
 $firstName = $_SESSION['firstName'];
 $lastName = $_SESSION['lastName'];
@@ -13,9 +16,6 @@ use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
-
-//DB connection
-include 'customFunctions/db_config.php';
 
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
@@ -60,12 +60,4 @@ if(isset($_POST['subject']) && isset($_POST['textarea']) && !empty($_POST['subje
 	// Reset the password case?
 	header("Location: index.php");
 	exit();
-}
-
-//Validate post-data
-function validatePostData($data) {
-	  $data = trim($data);
-	  $data = stripslashes($data);
-	  $data = htmlspecialchars($data);
-  return $data;
 }

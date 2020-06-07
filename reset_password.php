@@ -1,11 +1,10 @@
 <?php
 session_start();
+
 require_once 'customFunctions/db_config.php';
 
 $pass = $_POST['resetpassword'];
 $reset_string = $_POST['reset_password'];
-
-// var_dump($_SESSION);
 
 $sql = "SELECT * FROM users WHERE reset_string=:reset_string_p";
 $sql_request = $connection->prepare($sql);
@@ -22,7 +21,10 @@ if($sql_res){
 		$sql_update_request->execute(['reset_password_p' => $password_hashed, 'res_id' => $sql_res->id]);
 
 		header('Location: http://single-page-application.lan/index.php?password_changed=success#formLogin');
-
+}
+else{
+	header('Location: http://single-page-application.lan/index.php');
+	die('User not found');
 }
 
 

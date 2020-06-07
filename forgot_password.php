@@ -21,7 +21,7 @@
 </div>
 
 <div id="forgotten-container">
-<h1>Forgotten ?</h1>  
+<h1>Forgotten Password ?</h1>  
 
 <form method="post" action="reset_email.php">
 	<input type="email" name="email" placeholder="E-mail" required>

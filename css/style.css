@@ -1138,3 +1138,22 @@ h1, h2, h3, h4, h5,
   font: 14px Lucida Grande, sans-serif;
   font-style: italic;
 }
+
+#login_info{
+  font: italic bold 22px Georgia, serif;
+  color: red ;  
+}
+
+#course-single .course-instructor {
+      background-color: #E8E8E8 !important;
+    }
+
+#home .bg-white{
+  background-color: #DCDCDC !important;
+}
+
+#course-single .bg-white{
+  background-color: #DCDCDC !important;
+}
+/*img of the carousel to expand*/
+/*.owl-carousel .owl-item img{display:block;width:100%; height: 335px;}*/

@@ -1,7 +1,10 @@
 <?php
 session_start();
 
+include 'customFucntions/config.php';
+
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
+
 if(isset($_GET['error']) && !empty($_GET['error'])){
 $errorPost = $_GET['error'];
 $error = '';
@@ -45,65 +48,8 @@ $error = '';
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Cute Website</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
-    <link rel="stylesheet" href="css/aos.css">
-
-    <link rel="stylesheet" href="css/style.css">
-
-    <link rel="stylesheet" href="css/customCss.css">    
-  </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" id="home">
-  
-  <div class="site-wrap">
-
-    <div class="site-mobile-menu site-navbar-target">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close mt-3">
-          <span class="icon-close2 js-menu-toggle"></span>
-        </div>
-      </div>
-      <div class="site-mobile-menu-body"></div>
-    </div>
-   
-    
-    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
-      
-      <div class="container-fluid">
-        <div class="d-flex align-items-center">
-          <div class="site-logo mr-auto w-25"><a href="index.php">Cartoons Co</a></div>
-
-          <div class="mx-auto text-center">
-            <nav class="site-navigation position-relative text-right" role="navigation">
-              <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
-                <li><a href="index.php#home-section" class="nav-link">Home</a></li>
-                <li><a href="index.php#courses-section" class="nav-link">Characters</a></li>
-                <li><a href="index.php#programs-section" class="nav-link">Why cartoon?</a></li>
-                <li><a href="index.php#teachers-section" class="nav-link">Top Heroes</a></li>
-              </ul>
-            </nav>
-          </div>
+<!-- header -->
+<?php include 'includes/header.php'; ?>
 
           <div class="ml-auto w-25">
             <nav class="site-navigation position-relative text-right" role="navigation">
@@ -335,49 +281,7 @@ $error = '';
             </div>
 
           </div>
-        </div>
-
-       <!--  <div class="row mb-5 align-items-center">
-          <div class="col-lg-7 mb-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_teaching.svg" alt="Image" class="img-fluid">
-          </div>
-          <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Strive for Excellent</h2>
-            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
-
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
-              <div><h3 class="m-0">22,931 Yearly Graduates</h3></div>
-            </div>
-
-            <div class="d-flex align-items-center custom-icon-wrap">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
-              <div><h3 class="m-0">150 Universities Worldwide</h3></div>
-            </div>
-
-          </div>
-        </div> -->
-
-        <!-- <div class="row mb-5 align-items-center">
-          <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <img src="images/undraw_teacher.svg" alt="Image" class="img-fluid">
-          </div>
-          <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-black mb-4">Education is life</h2>
-            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
-
-            <div class="d-flex align-items-center custom-icon-wrap mb-3">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
-              <div><h3 class="m-0">22,931 Yearly Graduates</h3></div>
-            </div>
-
-            <div class="d-flex align-items-center custom-icon-wrap">
-              <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
-              <div><h3 class="m-0">150 Universities Worldwide</h3></div>
-            </div>
-
-          </div>
-        </div> -->
+        </div>       
 
       </div>
     </div>
@@ -446,15 +350,15 @@ $error = '';
 
     <div class="site-section pb-0">
 
-      <!-- <div class="future-blobs">
+      <div class="future-blobs">
         <div class="blob_2">
           <img src="images/blob_2.svg" alt="Image">
         </div>
         <div class="blob_1">
           <img src="images/blob_1.svg" alt="Image">
         </div>
-      </div> -->
-      <!-- <div class="container">
+      </div>
+     <!--  <div class="container">
         <div class="row mb-5 justify-content-center" data-aos="fade-up" data-aos-delay="">
           <div class="col-lg-7 text-center">
             <h2 class="section-title">Why Choose Me</h2>
@@ -504,9 +408,7 @@ $error = '';
           </div>
         </div>
       </div>
-    </div> -->
-
-    
+    </div> -->    
 
 
 <?php if(!isset($_SESSION['logged']) && empty($_SESSION['logged'])){
@@ -626,79 +528,15 @@ $error = '';
     </div>';
       }
 ?>    
-     
-    <footer class="footer-section bg-white">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h3>About Fun Stuff</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro consectetur ut hic ipsum et veritatis corrupti. Itaque eius soluta optio dolorum temporibus in, atque, quos fugit sunt sit quaerat dicta.</p>
-          </div>
+   
+<!-- footer  -->
+<?php include 'includes/footer.php'; ?>
 
-          <div class="col-md-3 ml-auto">
-            <h3>Links</h3>
-            <ul class="list-unstyled footer-links">
-               <li><a href="#home-section" class="nav-link">Home</a></li>
-                <li><a href="#courses-section" class="nav-link">Characters</a></li>
-                <li><a href="#programs-section" class="nav-link">Why cartoon?</a></li>
-                <li><a href="#teachers-section" class="nav-link">Top Heroes</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-4">
-            <h3>Subscribe</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt incidunt iure iusto architecto? Numquam, natus?</p>
-            <form action="#" class="footer-subscribe">
-              <div class="d-flex mb-5">
-                <input type="text" class="form-control rounded-0" placeholder="Email">
-                <input type="submit" class="btn btn-primary rounded-0" value="Subscribe">
-              </div>
-            </form>
-          </div>
-
-        </div>
-
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-            <p>
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |Web Dev <i class="icon-heart" aria-hidden="true"></i> by <a href="https://be-nerd.com" target="_blank" >Nerd Co</a>
-      </p>
-            </div>
-          </div>          
-        </div>
-      </div>
-    </footer>
-
-  
-    
-  </div> <!-- .site-wrap -->
-
-  <script src="js/jquery-3.5.0.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/jquery-ui.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/jquery.countdown.min.js"></script>
-  <script src="js/bootstrap-datepicker.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/jquery.sticky.js"></script>
-
-  
-  <script src="js/main.js"></script>
-
-  <!-- Include google-jquery cdn and custom js functions -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="customJS/functions.js"></script>
-
-  <script>
-    $(document).ready(function(){
+<script type="text/javascript">
+   $(document).ready(function(){  
       var error = '<?php echo $error; ?>';  // get the $_GET param if failed login
       var password_changed = '<?php echo $password_changed; ?>';
+      console.log(error);
 
    
       //add the text to the empty input-field for the error message
@@ -752,6 +590,16 @@ $error = '';
         sessionStorage.setItem('textarea', $('#textarea').val());        
       });
 
+
+      // function passwordCompare(pass, repass){
+      //   console.log(pass+repass);
+      // }
+
+      // $('#password_reg, #repassword').on('keyup', function(){
+      //   passwordCompare($('#password_reg').val(), $('#repassword').val());
+      // });
+
+
       //Password vs repassword
       var register_check = false;
       $('#password_reg, #repassword').on('keyup', function () {
@@ -803,7 +651,8 @@ $error = '';
       });
 
     });//document ready
-  </script>
+</script>
+  
     
   </body>
 </html>

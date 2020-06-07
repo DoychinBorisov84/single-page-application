@@ -1,19 +1,14 @@
 <?php
 session_start();
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+
 include 'customFunctions/db_config.php';
 
-//Get the session for the current registered/logged user
 $email = $_POST['email'];
-
 
 $sql = "SELECT email FROM users WHERE email=:email_p";
 $sql_request = $connection->prepare($sql);
 $sql_request->execute([':email_p' => $email]);
 $sql_res = $sql_request->fetch();
-
-// var_dump($sql_res); exit();
 
 // Import PHPMailer classes into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
@@ -22,10 +17,6 @@ use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
-
-//DB connection
-include 'customFunctions/db_config.php';
-
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
@@ -42,12 +33,6 @@ if($sql_res['email'] != ''){
 	$sql_q = "UPDATE users SET reset_string=:reset_string_p WHERE email=:email_p";
 	$sql_q_request = $connection->prepare($sql_q);
 	$sql_q_request->execute([':reset_string_p' => $reset_string, ':email_p' => $email]);
-
-
-	// var_dump($reset_string); exit();
-	// echo 'xssss';
-	// $subject = validatePostData($_POST['subject']);	
-	// $textarea = validatePostData($_POST['textarea']);	 
 
 	//Send an email
 	try {
@@ -93,12 +78,4 @@ if($sql_res['email'] != ''){
 	// header("Location: index.php");
 	header("Location: http://single-page-application.lan/index.php?error=".$reset_error);
 	exit();
-}
-
-//Validate post-data
-function validatePostData($data) {
-	  $data = trim($data);
-	  $data = stripslashes($data);
-	  $data = htmlspecialchars($data);
-  return $data;
 }
