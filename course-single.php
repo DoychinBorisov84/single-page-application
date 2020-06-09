@@ -5,6 +5,7 @@ include_once 'customFunctions/config.php';
 
 $character = $_GET['character'];
 $character_avatar = $character.'_1280.png';
+$logged = $_SESSION['logged'];
 
 ?>
 
@@ -13,11 +14,11 @@ $character_avatar = $character.'_1280.png';
 
           <div class="ml-auto w-25">
             <nav class="site-navigation position-relative text-right" role="navigation">
-              <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">                  
-                <?php if(!isset($_SESSION['logged']) && empty($_SESSION['logged'])){
-                   echo '<li class="cta"><a href="#contact-section" class=""><span>Register</span></a></li>';
+              <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
+                <?php if(!isset($logged)){
+                   echo '<li class="cta"><a href="index.php#contact-section" class=""><span>Register</span></a></li>';
                }else{
-                  echo '<li class="cta cta_email"><a href="logout.php" class="nav-link"><span>Log Out</span></a></li>';                  
+                  echo '<li class="cta cta_email"><a href="logout.php" class="nav-link"><span>Log Out</span></a></li>';
                 }
                ?>
               </ul>
@@ -39,12 +40,9 @@ $character_avatar = $character.'_1280.png';
                 <div class="col-lg-6">
                   <h1 data-aos="fade-up" data-aos-delay="0">Character Info/Name</h1>
                   <p data-aos="fade-up" data-aos-delay="100">He is a brave hero, maybe add name of the hero?</p>
-                </div>
-
-                
+                </div>                
               </div>
-            </div>
-            
+            </div>            
           </div>
         </div>
       </div>
@@ -58,7 +56,7 @@ $character_avatar = $character.'_1280.png';
             <div class="mb-5">
               <h3 class="text-black">Character Description</h3>
               <p class="mb-4">
-                <strong class="text-black mr-3">Super powers: </strong> bblallalsdlad as asd
+                <strong class="text-black mr-3">Super powers: </strong> Lorem ipsum dolor sit amet
               </p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim eum iure voluptatum provident natus, deleniti alias corporis dolorem architecto eligendi consequatur, veniam ratione qui adipisci, doloremque aspernatur? Debitis, quia, praesentium.</p>
               <p>Molestias sit temporibus ullam voluptatem quibusdam. Accusamus labore perspiciatis similique veritatis ipsum iure quas. Nulla perspiciatis unde eveniet nihil, nesciunt repellat maxime ab libero minima voluptas dolore repudiandae adipisci. Cumque!</p>
@@ -197,7 +195,7 @@ $character_avatar = $character.'_1280.png';
             <div class="mb-5 text-center border rounded course-instructor">
               <h3 class="mb-5 text-black text-uppercase h6 border-bottom pb-3">Accent on the Hero</h3>
               <div class="mb-4 text-center">
-                <img src="<?php echo 'images/'.$character_avatar; ?>" alt="Image" class="w-25 rounded-circle mb-4">  
+                <img src="<?php echo $rootImgs.$character_avatar; ?>" alt="Image" class="w-25 rounded-circle mb-4">  
                 <h3 class="h5 text-black mb-4">The <?php echo ucfirst($character); ?></h3>
                 <p>Lorem ipsum dolor sit amet sectetur adipisicing elit. Ipsa porro expedita libero pariatur vero eos.</p>
               </div>
@@ -225,7 +223,7 @@ $character_avatar = $character.'_1280.png';
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.php?character=bee"><img src="images/bee_1280.png" alt="Image" class="img-fluid"></a>
+                <a href="course-single.php?character=bee"><img src="<?php echo $rootImgs;?>bee_1280.png" alt="Bee Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <!-- <span class="course-price">$20</span> -->
@@ -241,7 +239,7 @@ $character_avatar = $character.'_1280.png';
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.php?character=businessman"><img src="images/businessman_1280.png" alt="Image" class="img-fluid"></a>
+                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=businessman"><img src="<?php echo $rootImgs;?>businessman_1280.png" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <!-- <span class="course-price">$99</span> -->
@@ -257,7 +255,7 @@ $character_avatar = $character.'_1280.png';
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.php?character=penguin"><img src="images/penguin_1280.png" alt="Image" class="img-fluid"></a>
+                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=penguin"><img src="<?php echo $rootImgs; ?>penguin_1280.png" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <!-- <span class="course-price">$99</span> -->
@@ -275,7 +273,7 @@ $character_avatar = $character.'_1280.png';
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.php?character=pirate"><img src="images/pirate_1280.png" alt="Image" class="img-fluid"></a>
+                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=pirate"><img src="<?php echo $rootImgs; ?>pirate_1280.png" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <!-- <span class="course-price">$20</span> -->
@@ -291,7 +289,7 @@ $character_avatar = $character.'_1280.png';
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.php?character=teacher"><img src="images/teacher_1280.png" alt="Image" class="img-fluid"></a>
+                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=teacher"><img src="i<?php echo $rootImgs; ?>teacher_1280.png" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <!-- <span class="course-price">$99</span> -->
@@ -307,7 +305,7 @@ $character_avatar = $character.'_1280.png';
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.php?character=turtle"><img src="images/turtle_1280.png" alt="Image" class="img-fluid" height="335px"></a>
+                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=turtle"><img src="<?php echo $rootImgs; ?>turtle_1280.png" alt="Image" class="img-fluid" height="335px"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <!-- <span class="course-price">$99</span> -->

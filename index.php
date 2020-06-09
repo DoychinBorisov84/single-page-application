@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-include 'customFucntions/config.php';
+include_once 'customFucntions/config.php';
+require_once  'customFunctions/db_config.php';
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
 
@@ -28,8 +29,14 @@ $error = '';
     case 'user_exist';
       $error = 'There is a registration with that email';
       break;
+    case 'error_exists';
+      $error = 'Email not found';
+      break;
     case 'profile_deleted';
       $error = 'The Profile has been successfully deleted';
+      break;
+    case 'profile_created';
+      $error = 'The Profile has been successfully created';
       break;
     case 'message_sent';
       $error = 'Message sent';
@@ -418,7 +425,7 @@ $error = '';
           <div class="row justify-content-center">
             <div class="col-md-7">            
               <h2 class="section-title mb-3">Register as Super Hero</h2>
-              <form method="post" action="register.php" data-aos="fade" id="formRegister">
+              <form action="register.php" method="post" data-aos="fade" id="formRegister">
               <h5 id="register_info"></h5>
                 <div class="form-group row">
                   <div class="col-md-6 mb-3 mb-lg-0">
@@ -454,7 +461,7 @@ $error = '';
 
                 <div class="form-group row">
                   <div class="col-md-6">                  
-                    <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Register">
+                    <input type="submit" name="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Register">
                   </div>
                 </div>
 
@@ -497,36 +504,37 @@ $error = '';
         </div>
       </div>';
       }
-    }else{
-    //echo 'Logged'; //only the message part here, and pass the data for the user automatically
-     echo '<div class="site-section bg-light" id="contact-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-7" id="message-section">            
-            <h2 class="section-title mb-3">Send me(you in mailtrap.io) a message</h2>          
-            <form method="post" action="sendEmail.php" data-aos="fade" id="sendEmail">
-              <h5 id="message_info" style="color:red; font-weight: bold"></h5>              
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Subject" id="subject" name="subject" required>
-                </div>
-              </div>              
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <textarea class="form-control" cols="30" rows="10" placeholder="Write your message here..." id="textarea" name="textarea" required></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-6">                  
-                  <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Send Message">
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>';
-      }
+    }
+    // else{
+    // //echo 'Logged'; //only the message part here, and pass the data for the user automatically
+    //  echo '<div class="site-section bg-light" id="contact-section">
+    //   <div class="container">
+    //     <div class="row justify-content-center">
+    //       <div class="col-md-7" id="message-section">            
+    //         <h2 class="section-title mb-3">Send me(you in mailtrap.io) a message</h2>          
+    //         <form method="post" action="sendEmail.php" data-aos="fade" id="sendEmail">
+    //           <h5 id="message_info" style="color:red; font-weight: bold"></h5>              
+    //           <div class="form-group row">
+    //             <div class="col-md-12">
+    //               <input type="text" class="form-control" placeholder="Subject" id="subject" name="subject" required>
+    //             </div>
+    //           </div>              
+    //           <div class="form-group row">
+    //             <div class="col-md-12">
+    //               <textarea class="form-control" cols="30" rows="10" placeholder="Write your message here..." id="textarea" name="textarea" required></textarea>
+    //             </div>
+    //           </div>
+    //           <div class="form-group row">
+    //             <div class="col-md-6">                  
+    //               <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Send Message">
+    //             </div>
+    //           </div>
+    //         </form>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>';
+    //   }
 ?>    
    
 <!-- footer  -->

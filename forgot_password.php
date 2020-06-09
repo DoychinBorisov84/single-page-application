@@ -10,8 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">        
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>   
 
-	<link rel="stylesheet" href="css/resetPassword.css">   
-
+	<link rel="stylesheet" href="css/resetPassword.css">
 </head>
 
 <body>  
@@ -21,13 +20,13 @@
 </div>
 
 <div id="forgotten-container">
-<h1>Forgotten Password ?</h1>  
+<h1>Forgotten Account ?</h1>  
 
 <form method="post" action="reset_email.php">
-	<input type="email" name="email" placeholder="E-mail" required>
-	<!-- <a href="#" class="orange-btn">Get new password</a> -->
+	<input type="email" name="email" placeholder="E-mail" required>	
 	<a href="index.php" class="green-btn">Home</a>    
-    <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Reset passowrd">
+  <!-- <a href="submit" class="red-btn">Get new password</a> -->
+    <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill red-btn" value="Reset password">
 </form>
 </div>  
 

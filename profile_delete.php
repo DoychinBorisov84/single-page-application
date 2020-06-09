@@ -21,7 +21,7 @@ if($user_logged != $cell_logged || $user_logged == 'undefined' || $user_logged =
 	header("Location: index.php?error=".$login_error);
 	session_unset();
 	session_destroy();
-	exit();
+	die('Unable to proceed with the request');
 }
 
 $sql_delete = "DELETE FROM users WHERE email=:user_email";
@@ -32,7 +32,6 @@ session_unset();
 session_destroy();
 $login_error = 'profile_deleted';
 header("Location: http://single-page-application.lan/index.php?error=".$login_error);
-
 die('Profile Deleted');
 
 ?>

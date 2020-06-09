@@ -120,6 +120,7 @@ if($user_logged !== $cell_logged){
           <span>Last Name</span>
           <span contenteditable="true" class="editable" id="lastname_edit"><?php echo($user_lastName != '' ? $user_lastName : 'Enter Last Name...' ) ?></span>
         </div>
+         <span id="message" style="color:red;"></span>
          <!-- <div class="coords">
           <span>Professional Occupation</span>
           <span contenteditable="true" class="editable" id="profession_edit">xxxxxx</span>
@@ -170,7 +171,7 @@ if($user_logged !== $cell_logged){
     <div class="general">
       <h1><?php echo($user_firstName != '' ? $user_firstName."'s Profile" : 'Enter name...') ?></h1>
       <p><strong>Email:</strong> <?php echo($user_email != '' ? $user_email : 'Enter email...'); ?></p>
-      <p><strong>First Name: </strong> <?php echo($user_firstName != '' ? $user_firstName : 'Enter first name...'); ?></p>      
+      <p><strong>First Name: </strong> <?php echo($user_firstName != '' ? $user_firstName : 'Enter first name...'); ?></p>
       <p><strong>Last Name: </strong> <?php echo($user_lastName != '' ? $user_lastName : 'Enter last name...'); ?></p>
       <span class="more">`Hover to edit...</span>
     </div>
@@ -203,6 +204,10 @@ if($user_logged !== $cell_logged){
       url: "profile_edit_save_db.php",
       success: function(msg){
         // console.log("Yes, " + msg);
+        $('#message').text('Profile Updated');
+      },
+      error: function(msg){
+        $('#message').text('Error occured, unable to update.');        
       }
     })//ajax
   });//document on click
