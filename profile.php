@@ -5,6 +5,7 @@ include 'customFunctions/db_config.php';
 $user_email = $_SESSION['email'];
 $user_firstName = $_SESSION['firstName'];
 $user_lastName = $_SESSION['lastName'];	
+$user_updated = $_SESSION['updated_at'];
 $user_logged = $_SESSION['logged'];	
 
 $pdo_query = "SELECT logged, updated_at FROM users WHERE email=:user_email";
@@ -114,7 +115,7 @@ if($user_logged !== $cell_logged){
         <h1><?php echo($user_firstName != '' ? $user_firstName : 'Enter First Name...'); ?></h1>
          <div class="coords">
           <span>Last Profile Update: </span>
-          <span style="font-weight:bold;color:purple"><?php echo ($cell_updated_at != '' ? $cell_updated_at : 'Unknown Time...') ?></span>
+          <span style="font-weight:bold;color:purple"><?php echo ($user_updated != '' ? $user_updated : 'Unknown Time...') ?></span>
         </div>
         <!-- <div class="coords">
           <span>Software Developmer</span>

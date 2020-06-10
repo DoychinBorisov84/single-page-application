@@ -31,6 +31,14 @@ class User extends Database{
 		return $this->insertUserDatabase($this->firstName, $this->lastName, $this->email, $this->password);
 	}
 
+	public function databaseExist(){
+		return $this->dataTableExist();
+	}
+
+	public function createDatabase(){
+		return $this->createDatabaseTable();
+	}
+
 	// public function test(){
 	// 	return $this->getx();	// parent
 	// }
