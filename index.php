@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include_once 'customFucntions/config.php';
+include_once 'customFunctions/config.php';
 require_once  'customFunctions/db_config.php';
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';

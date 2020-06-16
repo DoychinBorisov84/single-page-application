@@ -19,6 +19,7 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
 
 	// Instance of the class User
 	$user = new User($firstName, $lastName, $email_reg, $password_reg);
+	// echo '<pre>'.print_r($user, true).'</pre>'; exit();
 	
 	// Check if the datatable exists
 	$db_exists =  $user->databaseExist();
@@ -44,7 +45,7 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
 		    $user_create = $user->userCreate($firstName, $lastName, $email, $password_hashed);
 
 		    $message = 'profile_created';
-			header("Location: index.php?error=".$message."#contact-section");
+			header("Location: index.php?error=".$message."#home-section");
 			die('User created');		     
 		}
 	}	

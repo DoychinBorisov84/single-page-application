@@ -1,22 +1,23 @@
 <?php
 session_start();
 include 'customFunctions/db_config.php';
+include 'classes/Database.class.php';
+
+// Database Instance
+$db = new Database();
 
 $user_email = $_SESSION['email'];
 $user_firstName = $_SESSION['firstName'];
 $user_lastName = $_SESSION['lastName'];	
-$user_updated = $_SESSION['updated_at'];
-$user_logged = $_SESSION['logged'];	
+$user_logged = $_SESSION['logged']; 
+// $user_updated = $_SESSION['updated_at'];
 
-$pdo_query = "SELECT logged, updated_at FROM users WHERE email=:user_email";
-$pdo_query_request = $connection->prepare($pdo_query);
-$pdo_query_request->execute([':user_email' => $user_email]);
+$user_exist_db = $db->selectUserFromDatabase($user_email);
 
-$col_logged_assoc = $pdo_query_request->fetch(PDO::FETCH_ASSOC);
-$cell_logged = $col_logged_assoc['logged'];
+// var_dump($user_exist['logged']); exit;
 
 // Compare the session vs DB record
-if($user_logged !== $cell_logged){
+if($user_logged !== $user_exist_db['logged']){
   session_unset();
   session_destroy();
 	$login_error = 'hacking';
@@ -112,10 +113,10 @@ if($user_logged !== $cell_logged){
         </svg>
       </div>
       <div class="more-info">
-        <h1><?php echo($user_firstName != '' ? $user_firstName : 'Enter First Name...'); ?></h1>
+        <h1><?php echo($user_exist_db[firstName] != '' ? 'Welcome, '. $user_exist_db[firstName] : 'Enter First Name...'); ?></h1>
          <div class="coords">
           <span>Last Profile Update: </span>
-          <span style="font-weight:bold;color:purple"><?php echo ($user_updated != '' ? $user_updated : 'Unknown Time...') ?></span>
+          <span style="font-weight:bold;color:purple"><?php echo ($user_exist_db['updated_at'] != '' ? $user_exist_db['updated_at'] : 'Unknown Time...') ?></span>
         </div>
         <!-- <div class="coords">
           <span>Software Developmer</span>

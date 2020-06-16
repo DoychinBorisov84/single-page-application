@@ -1,25 +1,25 @@
 <?php
 session_start();
 include 'customFunctions/db_config.php';
+include 'classes/Database.class.php';
+
+// New db-object
+$db = new Database();
 
 $user_email = $_SESSION['email'];
 $user_firstName = $_SESSION['firstName'];
 $user_lastName = $_SESSION['lastName'];
 $user_logged = $_SESSION['logged'];	
 
-$pdo_query = "SELECT logged FROM users WHERE email=:user_email";
-$pdo_query_request = $connection->prepare($pdo_query);
-$pdo_query_request->execute([':user_email' => $user_email]);
-
-$col_logged_assoc = $pdo_query_request->fetch(PDO::FETCH_ASSOC);
-$cell_logged = $col_logged_assoc['logged'];
+$user_exist = $db->selectUserFromDatabase($user_email);
 
 // Compare the session vs DB record
-if($user_logged !== $cell_logged){
+if($user_logged !== $user_exist['logged']){
 	session_unset();
   session_destroy();
   $login_error = 'hacking';
-	header("Location: index.php?error=".$login_error);	
+  header("Location: http://single-page-application.lan/index.php?error=".$login_error.'#home-section');
+
 	die('Unauthorized access');
 }
 
@@ -111,14 +111,14 @@ if($user_logged !== $cell_logged){
         </svg>
       </div>
       <div class="more-info">
-        <h1 contenteditable="true" class="editable" id="email_edit"><?php echo($user_email != '' ? $user_email : 'Enter email...'); ?></h1>        
+        <h1 contenteditable="true" class="editable" id="email_edit"><?php echo($user_exist['email'] != '' ? $user_exist['email'] : 'Enter email...'); ?></h1>        
         <div class="coords">
           <span>First Name</span>
-          <span contenteditable="true" class="editable" id="firstname_edit"><?php echo($user_firstName != '' ? $user_firstName : 'Enter First Name...'); ?></span>
+          <span contenteditable="true" class="editable" id="firstname_edit"><?php echo($user_exist['firstName'] != '' ? $user_exist['firstName'] : 'Enter First Name...'); ?></span>
         </div>
         <div class="coords">
           <span>Last Name</span>
-          <span contenteditable="true" class="editable" id="lastname_edit"><?php echo($user_lastName != '' ? $user_lastName : 'Enter Last Name...' ) ?></span>
+          <span contenteditable="true" class="editable" id="lastname_edit"><?php echo($user_exist['lastName'] != '' ? $user_exist['lastName'] : 'Enter Last Name...' ) ?></span>
         </div>
          <span id="message" style="color:red;"></span>
          <!-- <div class="coords">
@@ -169,10 +169,10 @@ if($user_logged !== $cell_logged){
       </div>
     </div>
     <div class="general">
-      <h1><?php echo($user_firstName != '' ? $user_firstName."'s Profile" : 'Enter name...') ?></h1>
-      <p><strong>Email:</strong> <?php echo($user_email != '' ? $user_email : 'Enter email...'); ?></p>
-      <p><strong>First Name: </strong> <?php echo($user_firstName != '' ? $user_firstName : 'Enter first name...'); ?></p>
-      <p><strong>Last Name: </strong> <?php echo($user_lastName != '' ? $user_lastName : 'Enter last name...'); ?></p>
+      <h1><?php echo($user_exist['firstName'] != '' ? $user_exist['firstName']."'s Profile" : 'Enter name...') ?></h1>
+      <p><strong>Email:</strong> <?php echo($user_exist['email'] != '' ? $user_exist['email'] : 'Enter email...'); ?></p>
+      <p><strong>First Name: </strong> <?php echo($user_exist['firstName'] != '' ? $user_exist['firstName'] : 'Enter first name...'); ?></p>
+      <p><strong>Last Name: </strong> <?php echo($user_exist['lastName'] != '' ? $user_exist['lastName'] : 'Enter last name...'); ?></p>
       <span class="more">`Hover to edit...</span>
     </div>
   </div>

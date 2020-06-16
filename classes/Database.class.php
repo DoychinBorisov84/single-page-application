@@ -21,7 +21,7 @@ class Database{
 	public function __construct(){
 		try{
 		// $this->connection = new PDO($this->dsn, $this->username, $this->password, $this->options);	
-		$this->connection = new PDO("mysql:host=localhost;dbname=single_page_application", "root", "root");	
+		$this->connection = new PDO($this->dsn, $this->username, $this->password);	
 			 // die(json_encode(array('outcome' => true)));
 		}catch(PDOException $e){
 			echo $e->getMessage();
@@ -77,6 +77,39 @@ class Database{
 	}
 
 	/**
+	 * Insert user into the database
+	 * @param string $firstName 	 
+    */
+	public function deleteUserDatabase($email){
+		$pdo_query = "DELETE FROM $this->database_table WHERE email=:email_p";
+		$pdo_request = $this->connection->prepare($pdo_query);
+		$pdo_request->execute([':email_p' => $email]);
+
+		$q_res = $pdo_request->rowCount();
+
+	 return $q_res;
+
+	}
+
+
+	/**
+	 * Update record into the database
+	 * @param string $email 
+	 * @param string $logged_param 
+    */
+
+    public function setUserLogged($email, $logged_param){
+
+    	$pdo_query = "UPDATE $this->database_table SET logged=:logged_param WHERE email=:email_p";
+    	$pdo_request = $this->connection->prepare($pdo_query);
+    	$pdo_request->execute([':logged_param' => $logged_param, ':email_p' => $email]);
+
+    	$q_res = $pdo_request->rowCount();
+
+     return $q_res;
+    }
+
+	/**
 	 * Check if our database_schema && database_table exists into mysql information_schema
     */
 	public function dataTableExist(){
@@ -115,6 +148,4 @@ class Database{
 	   	// return $q_res;
 	}
 
-
-	// $connection = null;
 }

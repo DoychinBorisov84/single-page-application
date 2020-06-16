@@ -2,32 +2,29 @@
 session_start();
 include 'customFunctions/db_config.php'; // db_config_class.php !!!!
 include 'customFunctions/functions.php';
+include 'classes/Database.class.php';
 
-// $Dbh = new Database();
-// var_dump($Dbh);
-// echo $Dbh->getX(); die();
+// New db-object
+$db = new Database();
 
 if(isset($_POST['email_login']) && isset($_POST['password_login']) && !empty($_POST['email_login']) && !empty($_POST['password_login']) ){
 	$email_login = validateData($_POST['email_login']);	
 	$password_login = validateData($_POST['password_login']);
 	
-	$user_exist_query = "SELECT * FROM users WHERE email=:email_login";
-	$user_exist_request = $connection->prepare($user_exist_query);
-	$user_exist_request->execute([':email_login' => $email_login]);
-
-	//Have only 1 email existing
-	if($user_exist_request->rowCount() == '1'){			
-		$row_user_pass = $user_exist_request->fetch(PDO::FETCH_ASSOC);
-		$user_password_dehashed = password_verify($password_login, $row_user_pass['password']); // verify the pass
+	// Check if we have record with that email
+	$rec_exist = $db->selectUserFromDatabase($email_login);
+	
+	if($rec_exist){					
+		$user_password_dehashed = password_verify($password_login, $rec_exist['password']); // verify the pass
 		
 		if($user_password_dehashed){
-			$_SESSION['email'] = $row_user_pass['email'];
-			$_SESSION['firstName'] = $row_user_pass['firstName'];
-			$_SESSION['lastName'] = $row_user_pass['lastName'];		
+			// var_dump('here');exit;
+			$_SESSION['email'] = $rec_exist['email'];
+			$_SESSION['firstName'] = $rec_exist['firstName'];
+			$_SESSION['lastName'] = $rec_exist['lastName'];		
 			$_SESSION['logged'] = microtime(true).'_'.$_SESSION['email'];// unique temp-logg-data
-				$pdo_query_logged = "UPDATE users SET logged=:logged WHERE email=:email";
-				$pdo_query_logged_request = $connection->prepare($pdo_query_logged);
-				$pdo_query_logged_request->execute([':logged' => $_SESSION['logged'], ':email' => $email_login]);
+
+			$db->setUserLogged($email_login, $_SESSION['logged']);
 
 			header("Location: profile.php");				
 		}else{
