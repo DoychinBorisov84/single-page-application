@@ -2,33 +2,33 @@
 session_start();
 
 require_once 'customFunctions/db_config.php';
+include 'classes/Database.class.php';
+
+// New db-object
+$db = new Database();
 
 $pass = $_POST['resetpassword'];
 $reset_string = $_POST['reset_password'];
 
-$sql = "SELECT * FROM users WHERE reset_string=:reset_string_p";
-$sql_request = $connection->prepare($sql);
-$sql_request->execute([':reset_string_p' => $reset_string]);
+// Select the user from the DB based on the reset_string passed as parameter in the form
+$userForReset = $db->selectUserResetstring($reset_string);
 
-$sql_res = $sql_request->fetchObject();
-
-// var_dump($sql_res);
-if($sql_res){
+if($userForReset){
 	// var_dump($sql_res);
 	$password_hashed = password_hash($pass, PASSWORD_DEFAULT);
-		$sql_update = "UPDATE users SET password=:reset_password_p WHERE id=:res_id";
-		$sql_update_request = $connection->prepare($sql_update);
-		$sql_update_request->execute(['reset_password_p' => $password_hashed, 'res_id' => $sql_res->id]);
 
-		header('Location: http://single-page-application.lan/index.php?password_changed=success#formLogin');
+	   // Update the user password
+	   $user_updated = $db->updateUserPassword($password_hashed, $userForReset['id']);
+
+	   if($user_updated){
+	   	 header('Location: http://single-page-application.lan/index.php?password_changed=success#formLogin');
+	   	 die('User updated');
+	   }
+	   else{
+	   	die('Unable to reset the pasword at that time');
+	   }		
 }
 else{
 	header('Location: http://single-page-application.lan/index.php');
 	die('User not found');
 }
-
-
-
-
-
-?>

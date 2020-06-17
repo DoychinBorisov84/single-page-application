@@ -14,15 +14,15 @@ $user_logged = $_SESSION['logged'];
 $user_exist = $db->selectUserFromDatabase($user_email);
 
 // Compare the session vs DB record
-if($user_logged !== $user_exist['logged']){
+if($user_logged != $user_exist['logged']){
 	session_unset();
   session_destroy();
   $login_error = 'hacking';
   header("Location: http://single-page-application.lan/index.php?error=".$login_error.'#home-section');
-
 	die('Unauthorized access');
 }
 
+// var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +111,7 @@ if($user_logged !== $user_exist['logged']){
         </svg>
       </div>
       <div class="more-info">
-        <h1 contenteditable="true" class="editable" id="email_edit"><?php echo($user_exist['email'] != '' ? $user_exist['email'] : 'Enter email...'); ?></h1>        
+        <h1 class="editable" id="email_edit"><?php echo($user_exist['email'] != '' ? $user_exist['email'] : 'Enter email...'); ?></h1>        
         <div class="coords">
           <span>First Name</span>
           <span contenteditable="true" class="editable" id="firstname_edit"><?php echo($user_exist['firstName'] != '' ? $user_exist['firstName'] : 'Enter First Name...'); ?></span>
@@ -192,18 +192,18 @@ if($user_logged !== $user_exist['logged']){
 
   //save data to mqslq-db
   $(document).on('click', '#save_btn', function(e){  
-    var email_input = $('#email_edit').text();
+    // var email_input = $('#email_edit').text();
     var firstName_input = $('#firstname_edit').text();
     var lastName_input = $('#lastname_edit').text();
     $.ajax({
-      data: {email: email_input,
+      data: {
              firstName: firstName_input,
              lastName: lastName_input
       },
       method: "POST",
       url: "profile_edit_save_db.php",
       success: function(msg){
-        // console.log("Yes, " + msg);
+        console.log("Yes, " + msg);
         $('#message').text('Profile Updated');
       },
       error: function(msg){

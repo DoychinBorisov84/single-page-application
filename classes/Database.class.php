@@ -42,6 +42,22 @@ class Database{
 	}
 
 	/**
+	 * Select user from the database, using an email as parameter. Returns user as AssocArray	
+	 * @param string $reset_string 
+    */
+	public function selectUserResetstring($reset_string){
+
+		$pdo_query = "SELECT * FROM $this->database_table WHERE reset_string=:reset_string";
+		$pdo_request = $this->connection->prepare($pdo_query);
+		$pdo_request->execute([':reset_string' => $reset_string]);
+
+		$q_res = $pdo_request->fetch(PDO::FETCH_ASSOC);
+
+		return $q_res;
+	}
+
+
+	/**
 	 * Check if user exists in the database, using an email param. Return true/false
 	 * @param string $email 
     */
@@ -78,7 +94,7 @@ class Database{
 
 	/**
 	 * Insert user into the database
-	 * @param string $firstName 	 
+	 * @param string $email 	 
     */
 	public function deleteUserDatabase($email){
 		$pdo_query = "DELETE FROM $this->database_table WHERE email=:email_p";
@@ -90,6 +106,41 @@ class Database{
 	 return $q_res;
 
 	}
+
+	/**
+	 * Update user into the database
+	 * @param string $firstName 	 
+	 * @param string $lastName 	 
+	 * @param string $email 	 
+    */
+	public function updateUserDatabase($firstName, $lastName, $updated_at, $email){
+
+		$pdo_query = "UPDATE $this->database_table SET firstName=:firstName, lastName=:lastName, updated_at=:updated_at WHERE email=:email";
+		$pdo_request = $this->connection->prepare($pdo_query);
+		$pdo_request->execute([':firstName' => $firstName, ':lastName' => $lastName, ':updated_at' => $updated_at, ':email' => $email]);
+
+		$q_res = $pdo_request->rowCount();
+
+	 return $q_res;
+	}
+
+	/**
+	 * Update user password into the database
+	 * @param string $firstName 	 	  
+    */
+    public function updateUserPassword($pass, $id){
+
+    	$pdo_query = "UPDATE $this->database_table SET password=:pass WHERE id=:id";
+    	$pdo_request = $this->connection->prepare($pdo_query);
+    	$pdo_request->execute([':pass' => $pass, 'id' => $id]);
+
+    	$q_res = $pdo_request->rowCount();
+
+     return $q_res;
+    }
+
+
+
 
 
 	/**
@@ -108,6 +159,24 @@ class Database{
 
      return $q_res;
     }
+
+    /**
+	 * Update user reset_string field the database
+	 * @param string $firstName 	 
+	 * @param string $lastName 	 
+	 * @param string $email 	 
+    */
+    public function setUserResetString($reset_string, $email){
+
+    	$pdo_query = "UPDATE $this->database_table SET reset_string=:reset_string WHERE email=:email";
+    	$pdo_request = $this->connection->prepare($pdo_query);
+    	$pdo_request->execute([':reset_string' => $reset_string, ':email' => $email]);
+
+    	$q_res = $pdo_request->rowCount();
+
+	 return $q_res;
+    }
+
 
 	/**
 	 * Check if our database_schema && database_table exists into mysql information_schema
