@@ -42,7 +42,7 @@ $error = '';
       $error = 'The Profile has been successfully created';
       break;
     case 'db_fail';
-      $error = 'Sorry. There is a problem with the database';
+      $error = 'Sorry. There is a problem with the database!';
       break;
     case 'message_sent';
       $error = 'Message sent';
@@ -51,7 +51,7 @@ $error = '';
       $error = 'Check your email, and reset the password';
       break;
     case 'mailNotFound';
-      $error = 'Not existing email, please check again';
+      $error = 'Not existing email, please check, or try login!';
       break;
     default: 
         $error = '';

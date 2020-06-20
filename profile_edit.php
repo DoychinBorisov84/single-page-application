@@ -23,6 +23,23 @@ if($user_logged != $user_exist['logged']){
 }
 
 // var_dump($_SESSION);
+
+// TODO: Handle the file upload
+  // $target_dir = "uploads/";
+  // $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+  // $uploadOk = 1;
+  // $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+  // // Check if image file is a actual image or fake image
+  // if(isset($_POST["submit"])) {
+  //   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+  //   if($check !== false) {
+  //     echo "File is an image - " . $check["mime"] . ".";
+  //     $uploadOk = 1;
+  //   } else {
+  //     echo "File is not an image.";
+  //     $uploadOk = 0;
+  //   }
+  // }
 ?>
 
 <!DOCTYPE html>
@@ -120,6 +137,13 @@ if($user_logged != $user_exist['logged']){
           <span>Last Name</span>
           <span contenteditable="true" class="editable" id="lastname_edit"><?php echo($user_exist['lastName'] != '' ? $user_exist['lastName'] : 'Enter Last Name...' ) ?></span>
         </div>
+        <form action="#" method="POST" enctype="multipart/form-data">
+          <div class="coords">
+            <span>Upload Picture</span>
+            <input type="file" id="fileToUpload" name="fileToUploade">
+            <input type="submit">
+          </div>  
+        </form>        
          <span id="message" style="color:red;"></span>
          <!-- <div class="coords">
           <span>Professional Occupation</span>

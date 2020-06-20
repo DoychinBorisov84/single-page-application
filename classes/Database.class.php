@@ -126,7 +126,8 @@ class Database{
 
 	/**
 	 * Update user password into the database
-	 * @param string $firstName 	 	  
+	 * @param string $pass 	 	  
+	 * @param string $id 	 	  
     */
     public function updateUserPassword($pass, $id){
 
@@ -138,10 +139,6 @@ class Database{
 
      return $q_res;
     }
-
-
-
-
 
 	/**
 	 * Update record into the database

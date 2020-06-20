@@ -23,6 +23,7 @@
 <h1>Forgotten Account ?</h1>  
 
 <form method="post" action="reset_email.php">
+  <!-- <span id="msg"><?php // echo $_GET['error'] == 'mailNotFound' ? 'Email not found' : ''; ?></span> -->
 	<input type="email" name="email" placeholder="E-mail" required>	
 	<a href="index.php" class="green-btn">Home</a>    
   <!-- <a href="submit" class="red-btn">Get new password</a> -->
