@@ -17,7 +17,7 @@ $user_exist_db = $db->selectUserFromDatabase($user_email);
 // var_dump($user_exist['logged']); exit;
 
 // Compare the session vs DB record
-if($user_logged !== $user_exist_db['logged']){
+if($user_logged != $user_exist_db['logged']){
   session_unset();
   session_destroy();
 	$login_error = 'hacking';

@@ -174,6 +174,20 @@ class Database{
 	 return $q_res;
     }
 
+      /**
+	 * Save uploaded img to the database
+	 * @param string $img 	
+    */
+      public function saveImg($img, $email){
+      	$pdo_query = "UPDATE $this->database_table SET image=:img WHERE email=:email";
+      	$pdo_request = $this->connection->prepare($pdo_query);
+      	$pdo_request->execute(['img' => $img, 'email' => $email]);
+
+      	$q_res = $pdo_request->rowCount();
+
+      return $q_res;
+      }
+
 
 	/**
 	 * Check if our database_schema && database_table exists into mysql information_schema
