@@ -48,6 +48,7 @@ if($user_logged != $user_exist_db['logged']){
 
   <div class="card">
     <div class="additional">
+      <!-- image left-side -->            
       <div class="user-card">
         <div class="level center">
           <button type="button" onclick="location.href='profile_edit.php'" id="edit_btn">Edit</button>
@@ -55,7 +56,11 @@ if($user_logged != $user_exist_db['logged']){
         <div class="points center">
           <button type="button" onclick="location.href='profile_delete.php'" id="delete_btn">Delete</button>
         </div>
-        <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="center">
+         <div id="imgHolder" style="display:flex; justify-content: center; align-items: center; padding-top: 50%;">
+          <img src="<?php echo ($user_exist_db['image'] != '' && file_exists($user_exist_db['image']) ? $user_exist_db['image'] : 'images/profile.png') ?>" alt="FAIL" style="background-color: yellow;width:110px; height:110px; border-radius:40%;">
+         </div>
+         
+        <!-- <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="center">
           <title id="title">Your name</title>
           <desc id="desc">Cool profile of a user visiting www.yoursite.com</desc>
           <style>
@@ -110,7 +115,7 @@ if($user_logged != $user_exist_db['logged']){
               <path stroke="#daa37f" stroke-width="1" class="skin hand" id="hand-right" d="M 199,270 C 204,263 190,243 187,246 185,247 184,248 189,255 178,243 174,238 171,240 168,243 178,254 181,257 178,254 168,241 164,244 161,247 175,261 177,263 173,258 166,251 164,253 161,256 180,287 191,278"/> 
             </g>
           </g>
-        </svg>
+        </svg> -->
       </div>
       <div class="more-info">
         <h1><?php echo($user_exist_db[firstName] != '' ? 'Welcome, '. $user_exist_db[firstName] : 'Enter First Name...'); ?></h1>

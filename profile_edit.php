@@ -50,6 +50,9 @@ if($user_logged != $user_exist['logged']){
 
   <div class="card">
     <div class="additional">
+       <!-- <img src="<?php echo ($user_exist['image'] != '' ? $user_exist['image'] : 'images/profile.png') ?>" alt="FAIL" style="background-color: yellow;width:100%; height:100%; display:block;margin:auto;"> -->
+
+      <!-- image left-side -->      
       <div class="user-card">
         <div class="level center">
           <button type="button" onclick="location.href='profile.php'" id="back_btn">Back</button>
@@ -57,7 +60,11 @@ if($user_logged != $user_exist['logged']){
         <div class="points center">
           <button type="button" id="save_btn">Save</button>
         </div>
-        <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="center">
+         <div id="imgHolder" style="display:flex; justify-content: center; align-items: center; padding-top: 50%;">
+          <img src="<?php echo ($user_exist['image'] != '' && file_exists($user_exist['image']) ? $user_exist['image'] : 'images/users/default.png') ?>" alt="FAIL" style="background-color: yellow;width:110px; height:110px; border-radius:40%;">
+         </div>
+
+        <!-- <svg width="110" height="110" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc" class="center">
           <title id="title">Your name</title>
           <desc id="desc">Cool profile of a user visiting www.yoursite.com</desc>
           <style>
@@ -112,8 +119,9 @@ if($user_logged != $user_exist['logged']){
               <path stroke="#daa37f" stroke-width="1" class="skin hand" id="hand-right" d="M 199,270 C 204,263 190,243 187,246 185,247 184,248 189,255 178,243 174,238 171,240 168,243 178,254 181,257 178,254 168,241 164,244 161,247 175,261 177,263 173,258 166,251 164,253 161,256 180,287 191,278"/> 
             </g>
           </g>
-        </svg>
+        </svg> -->
       </div>
+      <!-- image left-side -->
       <div class="more-info">
         <h1 class="editable" id="email_edit"><?php echo($user_exist['email'] != '' ? $user_exist['email'] : 'Enter email...'); ?></h1>        
         <div class="coords">
@@ -132,7 +140,7 @@ if($user_logged != $user_exist['logged']){
           <!-- </div>   -->
         </form>        
          <span id="message" style="color:red;"></span>
-         <img src="<?php echo ($user_exist['image'] != '' ? $user_exist['image'] : 'images/profile.png') ?>" alt="FAIL" style="background-color: yellow;width:60px; height:60px; display:block;">
+        <!--  <img src="<?php echo ($user_exist['image'] != '' ? $user_exist['image'] : 'images/users/default.png') ?>" alt="FAIL" style="background-color: yellow;width:60px; height:60px; display:block;"> -->
          <!-- <div class="coords">
           <span>Professional Occupation</span>
           <span contenteditable="true" class="editable" id="profession_edit">xxxxxx</span>
@@ -192,6 +200,26 @@ if($user_logged != $user_exist['logged']){
   <!-- scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
   <script>
+   $(document).ready(function() {
+    var get_msg = '<?php echo $_GET['msg']; ?>';
+    // alert(get_msg);
+    if(get_msg == 'img_exist'){
+      $('#message').text('Sorry, file already exists.');
+    }else if(get_msg == 'img_size_err'){
+      $('#message').text('Sorry, up to 3MB for image is allowed');      
+    }else if(get_msg == 'img_type_err'){
+      $('#message').text('Sorry, only JPG, JPEG, PNG & GIF files are allowed.');            
+    }else if(get_msg == 'img_err'){
+      $('#message').text('Sorry, your file was not uploaded due to one of the requirements'); 
+    }else if(get_msg == 'img_success'){
+      $('#message').text('Your profile picture was updated!');       
+    }else if(get_msg == 'img_fail'){
+      $('#message').text('Sorry, your file seems ok. But there was an server side error!');    
+    }else{
+      $('#message').text('');
+    }
+   });
+
   //Home
 	$('#homeButton').on('click', function(){
 		window.location.href= "index.php";

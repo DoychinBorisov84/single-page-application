@@ -23,30 +23,34 @@ $uploadOk = 1;
 if(isset($_POST["submit"])) {
 	// Check if file already exists
 	if(file_exists($target_file)) {
-	  echo "Sorry, file already exists.";
+	  // echo "Sorry, file already exists.";
+	  header("Location: profile_edit.php?msg=img_exist");	    
 	  $uploadOk = 0;
-	}else if ($_FILES["fileToUpload"]["size"] > 2000000) { // Check file size		
-	  echo "Sorry, up to 2MB for image is allowed";
+	}else if ($_FILES["fileToUpload"]["size"] > 3000000) { // Check file size		
+	  // echo "Sorry, up to 3MB for image is allowed";
+	  header("Location: profile_edit.php?msg=img_size_err");	    	  
 	  $uploadOk = 0;
 	}else if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"	&& $imageFileType != "gif" ) {  // Allow certain file formats
-	  echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+	  // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+	  header("Location: profile_edit.php?msg=img_type_err");	    	  	  
 	  $uploadOk = 0;
 	}
 
 }	
-
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
+  // echo "Sorry, your file was not uploaded.";
+  header("Location: profile_edit.php?msg=img_err");	    	  	  
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    // echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     // Upload the img-path
     $db->saveImg($target_file, $_SESSION['email']);
-	header("Location: profile_edit.php?msg=img_uploaded");	    
+    header("Location: profile_edit.php?msg=img_success");	    
   } else {
-    echo "Sorry, your file is ok. But there was an error uploading your file.";
+    // echo "Sorry, your file is ok. But there was an error uploading your file.";
+    header("Location: profile_edit.php?msg=img_fail");	        
   }
 }
 

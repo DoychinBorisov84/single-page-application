@@ -42,6 +42,25 @@ class Database{
 	}
 
 	/**
+	 * Select All users from the database. Returns user as AssocArray	
+	 * @param string $ 
+    */
+	public function selectUsersAll(){
+		$sql = "SELECT * FROM $this->database_table ORDER BY ID";
+		$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
+
+		$users = array();
+		foreach ($result_sql as $user) {
+			// $users[$user] = $data;
+			// var_dump($user);exit;
+			array_push($users, $user);
+
+		}
+		// var_dump($users);
+	 return $users;
+	}
+
+	/**
 	 * Select user from the database, using an email as parameter. Returns user as AssocArray	
 	 * @param string $reset_string 
     */

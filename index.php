@@ -3,6 +3,20 @@ session_start();
 
 include_once 'customFunctions/config.php';
 require_once  'customFunctions/db_config.php';
+include 'classes/Database.class.php';
+
+// Database Instance
+$db = new Database();
+
+$user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
+
+$all_users = $db->selectUsersAll();
+// echo '<pre>'.print_r($all_users, true).'</pre>';
+// foreach ($all_users as $row) {
+//   echo $row['firstName'];
+// }
+
+
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
 
@@ -96,7 +110,7 @@ $error = '';
                   }
                   else{
                     echo '<h1  data-aos="fade-up" data-aos-delay="100">Hello '.$_SESSION['firstName'].'</h1>
-                    <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Send me a message</p>
+                    <!-- <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Send me a message</p> -->
                   <p data-aos="fade-up" data-aos-delay="300"><a href="#contact-section" class="btn btn-primary py-3 px-5 btn-pill">Send</a></p>';
                   } 
                   ?>
@@ -124,7 +138,7 @@ $error = '';
                 </div>';
                 }else{
                   echo'<div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500" style="display: table;"> 
-                    <a href="profile.php"><img src="images/logged_1920.jpg" alt="Profile img" style="display: table-cell; width: 100%; border-radius: 10%;"></a>
+                    <a href="profile.php"><img src="'.$user_exist_db["image"].'" alt="Profile img" style="display: table-cell; width: 100%; border-radius: 10%;"></a>
                     </div>';
                 }
                 ?>               
@@ -153,6 +167,25 @@ $error = '';
         <div class="row">
 
           <div class="owl-carousel col-12 nonloop-block-14">
+              
+              <?php foreach ($all_users as $user) {?>
+                <div class="course bg-white h-100 align-self-stretch">
+                  <figure class="m-0">
+                    <a href="course-single.php?character=bee"><img src="<?php echo ($user["image"] != '' ? $user['image'] : '/images/users/default.png' ); ?>" alt="Image" class="img-fluid"></a>
+                  </figure>
+                  <div class="course-inner-text py-4 px-4">
+                    <!-- <span class="course-price">$20</span> -->
+                    <div class="meta"><span class="icon-clock-o"></span><?php echo $user["firstName"]; ?></div>
+                    <h3><a href="#">User data</a></h3>
+                    <p>User data</p>
+                  </div>
+                  <div class="d-flex border-top stats">
+                    <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
+                    <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
+                  </div>
+                </div>
+              <?php } ?>
+             
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
