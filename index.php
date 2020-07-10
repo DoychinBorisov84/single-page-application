@@ -9,14 +9,7 @@ include 'classes/Database.class.php';
 $db = new Database();
 
 $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
-
 $all_users = $db->selectUsersAll();
-// echo '<pre>'.print_r($all_users, true).'</pre>';
-// foreach ($all_users as $row) {
-//   echo $row['firstName'];
-// }
-
-
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
 
@@ -70,8 +63,6 @@ $error = '';
     default: 
         $error = '';
   }
-}else{
-  $error = '';
 }
 ?>
 
@@ -109,9 +100,8 @@ $error = '';
                   <p data-aos="fade-up" data-aos-delay="300"><a href="#contact-section" class="btn btn-primary py-3 px-5 btn-pill">Register</a></p>';
                   }
                   else{
-                    echo '<h1  data-aos="fade-up" data-aos-delay="100">Hello '.$_SESSION['firstName'].'</h1>
-                    <!-- <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Send me a message</p> -->
-                  <p data-aos="fade-up" data-aos-delay="300"><a href="#contact-section" class="btn btn-primary py-3 px-5 btn-pill">Send</a></p>';
+                    echo '<h1  data-aos="fade-up" data-aos-delay="100">Hello, '.$_SESSION['firstName'].'</h1>
+                  ';
                   } 
                   ?>
                 </div>
@@ -137,8 +127,9 @@ $error = '';
                   </form>                  
                 </div>';
                 }else{
+                  $user_img = $user_exist_db["image"] != '' && file_exists($user_exist_db["image"]) ? $user_exist_db["image"] : "images/users/default.png";
                   echo'<div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500" style="display: table;"> 
-                    <a href="profile.php"><img src="'.$user_exist_db["image"].'" alt="Profile img" style="display: table-cell; width: 100%; border-radius: 10%;"></a>
+                    <a href="profile.php"><img src="'.$user_img.'" alt="Profile img" style="display: table-cell; width: 100%; border-radius: 10%;"></a>
                     </div>';
                 }
                 ?>               
@@ -171,7 +162,7 @@ $error = '';
               <?php foreach ($all_users as $user) {?>
                 <div class="course bg-white h-100 align-self-stretch">
                   <figure class="m-0">
-                    <a href="course-single.php?character=bee"><img src="<?php echo ($user["image"] != '' ? $user['image'] : '/images/users/default.png' ); ?>" alt="Image" class="img-fluid"></a>
+                    <a href="course-single.php?character=<?php echo $user['firstName']; ?>"><img src="<?php echo ($user["image"] != '' && file_exists($user['image']) ? $user['image'] : '/images/users/default.png' ); ?>" alt="Image Failed" class="img-fluid"></a>
                   </figure>
                   <div class="course-inner-text py-4 px-4">
                     <!-- <span class="course-price">$20</span> -->

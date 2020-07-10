@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Cute Website</title>
+    <title>Users Data</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
     
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="../css/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/customCss.css">    
   </head>
@@ -44,8 +45,7 @@
               <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
                 <li><a href="index.php#home-section" class="nav-link">Home</a></li>
                 <li><a href="index.php#courses-section" class="nav-link">Characters</a></li>
-                <li><a href="index.php#programs-section" class="nav-link">Why cartoon?</a></li>
-                <li><a href="index.php#teachers-section" class="nav-link">Top Heroes</a></li>
+                <li><a href="index.php#programs-section" class="nav-link">Top User/most clicks?</a></li>
               </ul>
             </nav>
           </div>

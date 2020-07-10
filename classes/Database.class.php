@@ -42,6 +42,18 @@ class Database{
 	}
 
 	/**
+	 * Select user from the database, using firstName as parameter. Returns user as AssocArray	
+	 * @param string $email 
+    */
+    public function selectUserByName($name){
+    	$sql = "SELECT firstName, lastName, image FROM users WHERE firstName=:name";
+    	$result_sql = $this->connection->prepare($sql);
+    	$result_sql->execute([':name' => $name]);
+
+    	return $result_sql->fetch(PDO::FETCH_ASSOC);
+    }
+
+	/**
 	 * Select All users from the database. Returns user as AssocArray	
 	 * @param string $ 
     */
@@ -50,11 +62,8 @@ class Database{
 		$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
 
 		$users = array();
-		foreach ($result_sql as $user) {
-			// $users[$user] = $data;
-			// var_dump($user);exit;
+		foreach ($result_sql as $user) {			
 			array_push($users, $user);
-
 		}
 		// var_dump($users);
 	 return $users;

@@ -1,9 +1,10 @@
+<?php ?>
  <footer class="footer-section bg-white">
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <h3>About Fun Stuff</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro consectetur ut hic ipsum et veritatis corrupti. Itaque eius soluta optio dolorum temporibus in, atque, quos fugit sunt sit quaerat dicta.</p>
+            <h3>Website footer</h3>
+            <p>In this website you can add, edit, delete, view our users. Feel free to participate</p>
           </div>
 
           <div class="col-md-3 ml-auto">
@@ -11,20 +12,17 @@
             <ul class="list-unstyled footer-links">
                <li><a href="#home-section" class="nav-link">Home</a></li>
                 <li><a href="#courses-section" class="nav-link">Characters</a></li>
-                <li><a href="#programs-section" class="nav-link">Why cartoon?</a></li>
-                <li><a href="#teachers-section" class="nav-link">Top Heroes</a></li>
+                <li><a href="#programs-section" class="nav-link">Top User/most clicks?</a></li>
             </ul>
           </div>
 
           <div class="col-md-4">
-            <h3>Subscribe</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt incidunt iure iusto architecto? Numquam, natus?</p>
-            <form action="#" class="footer-subscribe">
-              <div class="d-flex mb-5">
-                <input type="text" class="form-control rounded-0" placeholder="Email">
-                <input type="submit" class="btn btn-primary rounded-0" value="Subscribe">
-              </div>
-            </form>
+            <h3>Contact me</h3>          
+             <ul class="list-unstyled footer-links">
+              <li><a href="#" class="nav-link fa fa-facebook"></a></li>
+              <li><a href="#" class="nav-link fa fa-linkedin"></a></li>
+              <li><a href="#" class="nav-link fa fa-github"></a></li>
+            </ul>
           </div>
 
         </div>
@@ -33,7 +31,7 @@
           <div class="col-md-12">
             <div class="border-top pt-5">
             <p>
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |Web Dev <i class="icon-heart" aria-hidden="true"></i> by <a href="https://be-nerd.com" target="_blank" >Nerd Co</a>
+        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://example.com" target="_blank">Web Dev</a>
       </p>
             </div>
           </div>          

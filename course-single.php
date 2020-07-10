@@ -2,10 +2,25 @@
 session_start();
 
 include_once 'customFunctions/config.php';
+require_once  'customFunctions/db_config.php';
+include 'classes/Database.class.php';
 
 $character = $_GET['character'];
 $character_avatar = $character.'_1280.png';
 $logged = $_SESSION['logged'];
+
+// Database Instance
+$db = new Database();
+
+// $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
+$all_users = $db->selectUsersAll();
+$single_user = $db->selectUserByName($character);
+// var_dump($single_user);
+
+if(!$single_user){  
+  header("Location: index.php");    
+  exit();
+}
 
 ?>
 
@@ -38,7 +53,7 @@ $logged = $_SESSION['logged'];
             <div class="col-12">
               <div class="row justify-content-center align-items-center text-center">
                 <div class="col-lg-6">
-                  <h1 data-aos="fade-up" data-aos-delay="0">Character Info/Name</h1>
+                  <h1 data-aos="fade-up" data-aos-delay="0"><?php echo $single_user['firstName']; ?></h1>
                   <p data-aos="fade-up" data-aos-delay="100">He is a brave hero, maybe add name of the hero?</p>
                 </div>                
               </div>
@@ -195,7 +210,7 @@ $logged = $_SESSION['logged'];
             <div class="mb-5 text-center border rounded course-instructor">
               <h3 class="mb-5 text-black text-uppercase h6 border-bottom pb-3">Accent on the Hero</h3>
               <div class="mb-4 text-center">
-                <img src="<?php echo $rootImgs.$character_avatar; ?>" alt="Image" class="w-25 rounded-circle mb-4">  
+                <img src="<?php  echo ($single_user['image'] != '' && file_exists($single_user['image']) ? $single_user['image'] : 'images/profile.png'); ?>" alt="Image" class="w-25 rounded-circle mb-4">  
                 <h3 class="h5 text-black mb-4">The <?php echo ucfirst($character); ?></h3>
                 <p>Lorem ipsum dolor sit amet sectetur adipisicing elit. Ipsa porro expedita libero pariatur vero eos.</p>
               </div>

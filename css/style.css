@@ -1,4 +1,4 @@
-/* Base */
+ Base */
 body {
   line-height: 1.7;
   color: gray;
@@ -1155,5 +1155,14 @@ h1, h2, h3, h4, h5,
 #course-single .bg-white{
   background-color: #DCDCDC !important;
 }
+/*Social Icons*/
+.fa {
+  font-size: 26px; 
+}
+.fa:hover {
+    opacity: 0.8;
+}
+
+
 /*img of the carousel to expand*/
-/*.owl-carousel .owl-item img{display:block;width:100%; height: 335px;}*/
+/*.owl-carousel .owl-item img{display:block;width:100%; height: 335px;}
