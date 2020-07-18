@@ -54,7 +54,7 @@ if(!$single_user){
               <div class="row justify-content-center align-items-center text-center">
                 <div class="col-lg-6">
                   <h1 data-aos="fade-up" data-aos-delay="0"><?php echo $single_user['firstName']; ?></h1>
-                  <p data-aos="fade-up" data-aos-delay="100">He is a brave hero, maybe add name of the hero?</p>
+                  <p data-aos="fade-up" data-aos-delay="100">User data goes here</p>
                 </div>                
               </div>
             </div>            
@@ -220,133 +220,7 @@ if(!$single_user){
         </div>
       </div>
     </div>
-
-    <div class="site-section courses-title bg-dark" id="courses-section">
-      <div class="container">
-        <div class="row mb-5 justify-content-center">
-          <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
-            <h2 class="section-title">More Characters</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="site-section courses-entry-wrap"  data-aos="fade" data-aos-delay="100">
-      <div class="container">
-        <div class="row">
-
-          <div class="owl-carousel col-12 nonloop-block-14">
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.php?character=bee"><img src="<?php echo $rootImgs;?>bee_1280.png" alt="Bee Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$20</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>The Bee</div>
-                <h3><a href="#">Gather honey</a></h3>
-                <p>Super cool</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
-                <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=businessman"><img src="<?php echo $rootImgs;?>businessman_1280.png" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>The Boss</div>
-                <h3><a href="#">Curiuos</a></h3>
-                <p>Not a bad guy </p>
-              </div>
-              <div class="d-flex border-top stats">
-                <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
-                <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=penguin"><img src="<?php echo $rootImgs; ?>penguin_1280.png" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>Mr Penguin</div>
-                <h3><a href="#">Love the ice</a></h3>
-                <p>Walks funny</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
-                <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
-              </div>
-            </div>
-
-
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=pirate"><img src="<?php echo $rootImgs; ?>pirate_1280.png" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$20</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>Pirate Joe</div>
-                <h3><a href="#">Likes to drink Rum</a></h3>
-                <p>Yo ho ho</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
-                <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=teacher"><img src="i<?php echo $rootImgs; ?>teacher_1280.png" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>The teacher</div>
-                <h3><a href="#">Loves everyone</a></h3>
-                <p>Always helping</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
-                <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="<?php echo $_SERVER['PHP_SELF']; ?>?character=turtle"><img src="<?php echo $rootImgs; ?>turtle_1280.png" alt="Image" class="img-fluid" height="335px"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>Franklin the Turtle</div>
-                <h3><a href="#">Kind of slow</a></h3>
-                <p>Great pal</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
-                <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
-              </div>
-            </div>
-
-          </div>
-
-         
-
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-7 text-center">
-            <button class="customPrevBtn btn btn-primary m-1">Prev</button>
-            <button class="customNextBtn btn btn-primary m-1">Next</button>
-          </div>
-        </div>
-      </div>
-    </div>
+   
      
      <!-- footer -->
     <?php include 'includes/footer.php'; ?>

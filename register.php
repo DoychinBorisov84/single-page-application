@@ -4,6 +4,9 @@ session_start();
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 
+// TODO : USER NOT GET CREATED , check ddbug
+// var_dump($_POST); exit();
+
 require 'customFunctions/db_config.php';
 require 'customFunctions/functions.php';
 require 'classes/User.class.php';
@@ -43,7 +46,7 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
 		}else{
 			// Save the new user
 		    $user_create = $user->userCreate($firstName, $lastName, $email, $password_hashed);
-
+		    // var_dump($user_create); die;
 		    $message = 'profile_created';
 			header("Location: index.php?error=".$message."#home-section");
 			die('User created');		     

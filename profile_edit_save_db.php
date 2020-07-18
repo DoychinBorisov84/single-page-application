@@ -14,10 +14,10 @@ $user_logged = $_SESSION['logged'];
 $user_exist = $db->selectUserFromDatabase($user_email);
 
 // Compare the session vs DB record
-if($user_logged != $user_exist['logged']){
+if($user_logged != $user_exist['logged']  || $user_logged == NULL || $user_exist == false){
 	session_unset();
 	session_destroy();
-	$login_error = 'hacking';
+	$login_error = 'restricted';
 	header("Location: index.php?error=".$login_error);	
 	die('Unauthorized privileges to edit profile');
 }else{

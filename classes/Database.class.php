@@ -46,7 +46,7 @@ class Database{
 	 * @param string $email 
     */
     public function selectUserByName($name){
-    	$sql = "SELECT firstName, lastName, image FROM users WHERE firstName=:name";
+    	$sql = "SELECT firstName, lastName, image FROM $this->database_table WHERE firstName=:name";
     	$result_sql = $this->connection->prepare($sql);
     	$result_sql->execute([':name' => $name]);
 
@@ -116,8 +116,9 @@ class Database{
 	    $pdo_request = $this->connection->prepare($pdo_query);
 	    $pdo_request->execute([':firstName' => $firstName, ':lastName' => $lastName, ':email' => $email, ':password' => $password]);
 
-	    $q_res = $pdo_request->fetch(PDO::FETCH_ASSOC);
-	   	return $q_res;
+	    $q_res = $pdo_request->fetch(PDO::FETCH_ASSOC);	    
+
+	   return $q_res;
 	}
 
 	/**
@@ -246,6 +247,7 @@ class Database{
 		  logged VARCHAR(50),
 		  password VARCHAR(99) NOT NULL,
 		  reset_string VARCHAR(55),
+		  image VARCHAR(100),
 		  created_at VARCHAR(30),
 		  updated_at VARCHAR(30)
 	  );

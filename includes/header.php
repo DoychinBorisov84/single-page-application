@@ -38,14 +38,14 @@
       
       <div class="container-fluid">
         <div class="d-flex align-items-center">
-          <div class="site-logo mr-auto w-25"><a href="index.php">Cartoons Co</a></div>
+          <div class="site-logo mr-auto w-25"><a href="index.php">Users Administration</a></div>
 
           <div class="mx-auto text-center">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
                 <li><a href="index.php#home-section" class="nav-link">Home</a></li>
-                <li><a href="index.php#courses-section" class="nav-link">Characters</a></li>
-                <li><a href="index.php#programs-section" class="nav-link">Top User/most clicks?</a></li>
+                <li><a href="index.php#courses-section" class="nav-link">Registered Users</a></li>
+                <li><a href="index.php#user-section" class="nav-link">Top User/most clicks?</a></li>
               </ul>
             </nav>
           </div>

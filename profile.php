@@ -15,12 +15,13 @@ $user_logged = $_SESSION['logged'];
 $user_exist_db = $db->selectUserFromDatabase($user_email);
 
 // var_dump($user_exist['logged']); exit;
+// var_dump($user_logged);
 
 // Compare the session vs DB record
-if($user_logged != $user_exist_db['logged']){
+if($user_logged != $user_exist_db['logged'] || $user_logged == NULL || $user_exist_db == false ){
   session_unset();
   session_destroy();
-	$login_error = 'hacking';
+	$login_error = 'restricted';
 	header("Location: index.php?error=".$login_error);	
 	die('Unable to proceed');
 }
