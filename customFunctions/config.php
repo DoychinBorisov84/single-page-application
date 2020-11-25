@@ -1,8 +1,8 @@
 <?php
 
-$rootUrl = 'http://single-page-application.lan/index.php';
+$rootUrl = 'http://user_administration.lan.lan/index.php';
 
-$root = 'http://single-page-application.lan/';
+$root = 'http://user_administration.lan.lan/';
 
 $rootImgs = '../images/';
 

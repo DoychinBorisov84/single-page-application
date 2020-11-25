@@ -10,6 +10,7 @@ class Database{
 	private $dsn = "mysql:host=localhost;dbname=single_page_application";
 	private $charset = 'utf8mb4';
 	private $database_table = 'users';
+	private $counter_table = 'user_counter';
 	private $connection;
 
 	private $options = [
@@ -217,6 +218,21 @@ class Database{
       return $q_res;
       }
 
+
+      /**
+	 * Save the liked user name data into the database
+	 * @param string $user_id, string $visiter_ip	
+	 * return rows affected
+    */
+      public function likeUser($user_id, $visiter_ip){
+      	$pdo_query = "INSERT INTO $this->counter_table (user_id, visiter_ip, created_at) VALUES(:user_id, :visiter_ip, now() ) ";
+      	$pdo_request = $this->connection->prepare($pdo_query);
+      	$pdo_request->execute(['user_id' => $user_id, 'visiter_ip' => $visiter_ip]);
+
+      	$q_res = $pdo_request->rowCount();
+      	// var_dump($q_res);
+      return $q_res;
+      }
 
 	/**
 	 * Check if our database_schema && database_table exists into mysql information_schema

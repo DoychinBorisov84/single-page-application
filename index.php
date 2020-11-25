@@ -156,19 +156,19 @@ $error = '';
       <div class="container">
         <div class="row">
           <div class="owl-carousel col-12 nonloop-block-14">              
-              <?php foreach ($all_users as $user) {?>
+              <?php foreach ($all_users as $user) { ?>
                 <div class="course bg-white h-100 align-self-stretch">
                   <figure class="m-0">
                     <a href="course-single.php?character=<?php echo $user['firstName']; ?>"><img src="<?php echo ($user["image"] != '' && file_exists($user['image']) ? $user['image'] : '/images/users/default.png' ); ?>" alt="Image Failed" class="img-fluid"></a>
                   </figure>
                   <div class="course-inner-text py-4 px-4">
                     <!-- <span class="course-price">$20</span> -->
-                    <div class="meta"><span class="icon-clock-o"></span><?php echo $user["firstName"]; ?></div>
+                    <div class="meta"><span class="icon-clock-o"></span><span id="user_name"><?php echo $user["firstName"]; ?></span></div>
                     <h3><a href="#">User data</a></h3>
                     <p>User data</p>
                   </div>
                   <div class="d-flex border-top stats">                    
-                    <i onclick="likeDislike(this)" class="fa-like fa fa-thumbs-up"></i>
+                    <i class="fa-like fa fa-thumbs-up liker"></i>
                     <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
                     <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
                   </div>
@@ -387,21 +387,65 @@ $error = '';
       // }
 
     });//document ready
-    var clicked = '';
-    function likeDislike(x) {
-      // x.classList.toggle("fa-thumbs-down");      
-      if(x.style.color != 'darkblue'){
-        x.style.color = 'darkblue';
-        clicked = 1;
+  
+   var clicked = '';  
+   $(".container").on('click', '.liker', function(){
+      // console.log( $(this).closest(".owl-item").find("#user_name").text() );
+      var liked_name = $(this).closest(".owl-item").find("#user_name").text();
+
+    if( clicked != 1 ){
+      $(this).css("color", "darkblue");        
+      clicked = 1;
+      // Save the data
+      $.ajax({
+        method: "POST",
+        url: "ratings.php",
+        data:{
+          liked: liked_name,
+          who_clicked: 'only registered'
+        }
+        })
+        .done(function(msg){
+          alert("You liked" + ": " +  msg);
+        });        
       }else{
-        x.style.color = 'black'; 
+        $(this).css("color", "#000"); 
+        // alert('daaaa');
        clicked = 0;
       }
+    });
 
-      var target = event.target.className;
-      console.log(event.target.className);
-      console.log($("."+target).parent());
-      $("."+target).parent().css( "background-color", "red" );
+
+    // var clicked = '';
+    // function likeDislike(x) {            
+    //   if(x.style.color != 'darkblue'){
+    //     x.style.color = 'darkblue';
+    //     clicked = 1;
+    //     // Save the data
+    //     $.ajax({
+    //       method: "POST",
+    //       url: "ratings.php",
+    //       data:{
+    //         dummy: "gummy"
+    //       }
+    //       })
+    //       .done(function(msg){
+    //         // alert("Script accessed"+msg);
+    //       });
+        
+    //   }else{
+    //     x.style.color = 'black'; 
+    //    clicked = 0;
+      // }
+
+      // console.log( $(this).closest(".course-inner-text").find(".meta") );      
+      // console.log( $(this).parent().attr('class') ) ;
+
+
+      // var target = event.target.className;
+      // console.log(event.target.className);
+      // console.log($("."+target).parent());
+      // $("."+target).parent().css( "background-color", "red" );
 
       // $.ajax({
       //   data: {
@@ -409,7 +453,7 @@ $error = '';
       //   }
       // });
 
-    }
+    // }
         
 </script>
   
