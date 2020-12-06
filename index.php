@@ -388,72 +388,44 @@ $error = '';
 
     });//document ready
   
-   var clicked = '';  
-   $(".container").on('click', '.liker', function(){
-      // console.log( $(this).closest(".owl-item").find("#user_name").text() );
-      var liked_name = $(this).closest(".owl-item").find("#user_name").text();
+   
+   $(".container").on('click', '.liker', function(){      
+      var name = $(this).closest(".owl-item").find("#user_name").text();      
+      var clickedBtn = $(this);
 
-    if( clicked != 1 ){
-      $(this).css("color", "darkblue");        
-      clicked = 1;
-      // Save the data
+      if( clickedBtn.hasClass('fa-active') ){
+        action = 'dislike';
+      }else if( !clickedBtn.hasClass('fa-active') ){
+        action = 'like';
+      }
+  
+        // Save the data
       $.ajax({
         method: "POST",
         url: "ratings.php",
         data:{
-          liked: liked_name,
-          who_clicked: 'only registered'
+          name: name,
+          visitor_id: 'The logged User ???',
+          action: action
+        },
+        success: function(data){
+          if( action == 'like' ){
+              $('.fa-like').removeClass('fa-active');
+              clickedBtn.addClass('fa-active');
+              if(data == 'success'){
+                alert("You liked" + ": " +  name);
+              }
+          }else if( action == 'dislike' ){
+             clickedBtn.removeClass('fa-active');
+             if(data == 'success'){
+               alert("You disLiked" + ": " +  name);
+             }
+
+          }
         }
-        })
-        .done(function(msg){
-          alert("You liked" + ": " +  msg);
-        });        
-      }else{
-        $(this).css("color", "#000"); 
-        // alert('daaaa');
-       clicked = 0;
-      }
+        });      
     });
 
-
-    // var clicked = '';
-    // function likeDislike(x) {            
-    //   if(x.style.color != 'darkblue'){
-    //     x.style.color = 'darkblue';
-    //     clicked = 1;
-    //     // Save the data
-    //     $.ajax({
-    //       method: "POST",
-    //       url: "ratings.php",
-    //       data:{
-    //         dummy: "gummy"
-    //       }
-    //       })
-    //       .done(function(msg){
-    //         // alert("Script accessed"+msg);
-    //       });
-        
-    //   }else{
-    //     x.style.color = 'black'; 
-    //    clicked = 0;
-      // }
-
-      // console.log( $(this).closest(".course-inner-text").find(".meta") );      
-      // console.log( $(this).parent().attr('class') ) ;
-
-
-      // var target = event.target.className;
-      // console.log(event.target.className);
-      // console.log($("."+target).parent());
-      // $("."+target).parent().css( "background-color", "red" );
-
-      // $.ajax({
-      //   data: {
-
-      //   }
-      // });
-
-    // }
         
 </script>
   

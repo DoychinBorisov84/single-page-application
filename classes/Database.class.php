@@ -224,15 +224,43 @@ class Database{
 	 * @param string $user_id, string $visiter_ip	
 	 * return rows affected
     */
-      public function likeUser($user_id, $visiter_ip){
-      	$pdo_query = "INSERT INTO $this->counter_table (user_id, visiter_ip, created_at) VALUES(:user_id, :visiter_ip, now() ) ";
+      public function likeUser($user_liked_id, $visitor_id){
+      	$user_reacted = "SELECT * FROM $this->counter_table WHERE visitor_id=:visitor_id";
+      	$user_reacted_q = $this->connection->prepare($user_reacted);
+      	$user_reacted_q->execute([':visitor_id' => $visitor_id]);
+      	
+      	if ($user_reacted_q->rowCount() == 0 ){
+      		$pdo_query_ins = "INSERT INTO $this->counter_table (user_liked_id, visitor_id, created_at) VALUES(:user_liked_id, :visitor_id, now() ) ";
+	      	$pdo_request_ins = $this->connection->prepare($pdo_query_ins);
+	      	$pdo_request_ins->execute([':user_liked_id' => $user_liked_id, ':visitor_id' => $visitor_id]);
+
+	      	return $pdo_request_ins->rowCount();
+      	}else{
+      		$pdo_query_upd = "UPDATE $this->counter_table SET user_liked_id=:user_liked_id, created_at=now() WHERE visitor_id=:visitor_id ";
+	      	$pdo_request_upd = $this->connection->prepare($pdo_query_upd);
+	      	$pdo_request_upd->execute([':user_liked_id' => $user_liked_id, 'visitor_id' => $visitor_id]);
+
+	      	return $pdo_request_upd->rowCount();
+      	}
+      	
+      }
+
+
+       /**
+	 * Save the liked user name data into the database
+	 * @param string $user_id, string $visiter_ip	
+	 * return rows affected
+    */
+      public function unLikeUser($user_liked_id, $visitor_id){
+      	$pdo_query = "DELETE FROM $this->counter_table WHERE user_liked_id=:user_liked_id AND visitor_id=:visitor_id ";
       	$pdo_request = $this->connection->prepare($pdo_query);
-      	$pdo_request->execute(['user_id' => $user_id, 'visiter_ip' => $visiter_ip]);
+      	$pdo_request->execute(['user_liked_id' => $user_liked_id, 'visitor_id' => $visitor_id]);
 
       	$q_res = $pdo_request->rowCount();
       	// var_dump($q_res);
       return $q_res;
       }
+
 
 	/**
 	 * Check if our database_schema && database_table exists into mysql information_schema
