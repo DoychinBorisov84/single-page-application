@@ -10,6 +10,12 @@ $db = new Database();
 
 $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
 $all_users = $db->selectUsersAll();
+$counterLikes = $db->selectCountUser();
+$logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
+
+// echo '<pre>'.print_r($_SESSION, true).'</pre>';
+// var_dump($logged);
+// echo '<pre>'.print_r($counterLikes, true).'</pre>';
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
 
@@ -169,7 +175,7 @@ $error = '';
                   </div>
                   <div class="d-flex border-top stats">                    
                     <i class="fa-like fa fa-thumbs-up liker"></i>
-                    <!-- <div class="py-3 px-4"><span class="icon-users"></span> 2,193 students</div> -->
+                    <div class="py-3 px-4"><span class="icon-users"></span> *** likes</div>
                     <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
                   </div>
                 </div>
@@ -378,53 +384,62 @@ $error = '';
         }
       });
 
-      // Like / Dislike Button
-      // $(".fa-like").on('click', function(){
-      //   x.classList.toggle("fa-thumbs-down");
-      // });
-      // function likeDislike(x) {
-      //   x.classList.toggle("fa-thumbs-down");
-      // }
+
+      // Like/Dislike functionality
+      // TODO: remove styling button when not logged 
+      $(".container").on('click', '.liker', function(){ 
+      var logged = '<?php echo $logged; ?>';   
+        
+      switch(logged){
+        case '1':
+        console.log(logged);
+          var name = $(this).closest(".owl-item").find("#user_name").text();      
+          var clickedBtn = $(this);
+
+          if( clickedBtn.hasClass('fa-active') ){
+            action = 'dislike';
+          }else if( !clickedBtn.hasClass('fa-active') ){
+            action = 'like';
+          }
+      
+          // Save the data
+          $.ajax({
+            method: "POST",
+            url: "ratings.php",
+            data:{
+              name: name,
+              visitor_id: 'The logged User ???',
+              action: action
+            },
+            success: function(data){
+              if( action == 'like' ){
+                  $('.fa-like').removeClass('fa-active');
+                  clickedBtn.addClass('fa-active');
+                  if(data == 'success'){
+                    alert("You liked" + ": " +  name);
+                  }
+              }else if( action == 'dislike' ){
+                clickedBtn.removeClass('fa-active');
+                if(data == 'success'){
+                  alert("You disLiked" + ": " +  name);
+                }
+
+              }
+            }
+            });  
+            break;
+            case '0':
+              alert('Only registered users allowed to vote');
+              break;
+      }
+         
+    });
+
 
     });//document ready
   
    
-   $(".container").on('click', '.liker', function(){      
-      var name = $(this).closest(".owl-item").find("#user_name").text();      
-      var clickedBtn = $(this);
-
-      if( clickedBtn.hasClass('fa-active') ){
-        action = 'dislike';
-      }else if( !clickedBtn.hasClass('fa-active') ){
-        action = 'like';
-      }
-  
-        // Save the data
-      $.ajax({
-        method: "POST",
-        url: "ratings.php",
-        data:{
-          name: name,
-          visitor_id: 'The logged User ???',
-          action: action
-        },
-        success: function(data){
-          if( action == 'like' ){
-              $('.fa-like').removeClass('fa-active');
-              clickedBtn.addClass('fa-active');
-              if(data == 'success'){
-                alert("You liked" + ": " +  name);
-              }
-          }else if( action == 'dislike' ){
-             clickedBtn.removeClass('fa-active');
-             if(data == 'success'){
-               alert("You disLiked" + ": " +  name);
-             }
-
-          }
-        }
-        });      
-    });
+   
 
         
 </script>

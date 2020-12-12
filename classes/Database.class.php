@@ -9,7 +9,7 @@ class Database{
 	private $host = 'localhost';
 	private $dsn = "mysql:host=localhost;dbname=single_page_application";
 	private $charset = 'utf8mb4';
-	private $database_table = 'users';
+	private $users_table = 'users';
 	private $counter_table = 'user_counter';
 	private $connection;
 
@@ -35,7 +35,7 @@ class Database{
 	 * @param string $email 
     */
 	public function selectUserFromDatabase($email){
-		$sql = "SELECT * FROM $this->database_table WHERE email=:email";
+		$sql = "SELECT * FROM $this->users_table WHERE email=:email";
 		$result_sql = $this->connection->prepare($sql);
 		$result_sql->execute([':email' => $email]);
 
@@ -47,7 +47,7 @@ class Database{
 	 * @param string $email 
     */
     public function selectUserByName($name){
-    	$sql = "SELECT firstName, lastName, image FROM $this->database_table WHERE firstName=:name";
+    	$sql = "SELECT firstName, lastName, image FROM $this->users_table WHERE firstName=:name";
     	$result_sql = $this->connection->prepare($sql);
     	$result_sql->execute([':name' => $name]);
 
@@ -59,16 +59,48 @@ class Database{
 	 * @param string $ 
     */
 	public function selectUsersAll(){
-		$sql = "SELECT * FROM $this->database_table ORDER BY ID";
+		$sql = "SELECT * FROM $this->users_table ORDER BY ID";
 		$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
 
-		$users = array();
+		$users = [];
 		foreach ($result_sql as $user) {			
-			array_push($users, $user);
+			$users[] = $user;
 		}
-		// var_dump($users);
 	 return $users;
 	}
+
+	/**
+	 * Count likes per user from the database. Returns user as AssocArray	
+	 * @param string $ 
+	*/
+	public function selectCountUser(){
+		$sql = "SELECT COUNT(ID) AS LikedUsers FROM $this->counter_table";
+		// var_dump($sql);
+		$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
+
+		$users = [];
+		foreach ($result_sql as $user) {			
+			$users[] = $user;
+		}
+	 return $users;
+	}
+
+	/**
+	 * Check the user session in the DB	
+	 * @param string $ 
+	*/
+	public function checkUserLogged($email, $logged){
+		$sess_email = (isset($email) ? $email : '');
+		$sess_logg = (isset($logged) ? $logged : '');
+
+		$sql = "SELECT logged FROM $this->users_table WHERE email=:email AND logged=:logged";
+		$result_sql = $this->connection->prepare($sql);
+		$result_sql->execute([':email' => $sess_email, ':logged' => $sess_logg]);
+
+		return $result_sql->rowCount();
+	}
+
+
 
 	/**
 	 * Select user from the database, using an email as parameter. Returns user as AssocArray	
@@ -76,7 +108,7 @@ class Database{
     */
 	public function selectUserResetstring($reset_string){
 
-		$pdo_query = "SELECT * FROM $this->database_table WHERE reset_string=:reset_string";
+		$pdo_query = "SELECT * FROM $this->users_table WHERE reset_string=:reset_string";
 		$pdo_request = $this->connection->prepare($pdo_query);
 		$pdo_request->execute([':reset_string' => $reset_string]);
 
@@ -92,7 +124,7 @@ class Database{
     */
 	public function emailExist($email){
 		$exist = false;
-		$pdo_query = "SELECT * FROM $this->database_table WHERE email=:email";
+		$pdo_query = "SELECT * FROM $this->users_table WHERE email=:email";
 		$pdo_request = $this->connection->prepare($pdo_query);
 		$pdo_request->execute([':email' => $email]);
 
@@ -113,7 +145,7 @@ class Database{
 	 * @param string $password 
     */
 	public function insertUserDatabase($firstName, $lastName, $email, $password){
-		$pdo_query = "INSERT INTO $this->database_table (firstName, lastName, email, password, created_at, updated_at) VALUES(:firstName, :lastName, :email, :password, now(), now())"; 
+		$pdo_query = "INSERT INTO $this->users_table (firstName, lastName, email, password, created_at, updated_at) VALUES(:firstName, :lastName, :email, :password, now(), now())"; 
 	    $pdo_request = $this->connection->prepare($pdo_query);
 	    $pdo_request->execute([':firstName' => $firstName, ':lastName' => $lastName, ':email' => $email, ':password' => $password]);
 
@@ -127,7 +159,7 @@ class Database{
 	 * @param string $email 	 
     */
 	public function deleteUserDatabase($email){
-		$pdo_query = "DELETE FROM $this->database_table WHERE email=:email_p";
+		$pdo_query = "DELETE FROM $this->users_table WHERE email=:email_p";
 		$pdo_request = $this->connection->prepare($pdo_query);
 		$pdo_request->execute([':email_p' => $email]);
 
@@ -145,7 +177,7 @@ class Database{
     */
 	public function updateUserDatabase($firstName, $lastName, $updated_at, $email){
 
-		$pdo_query = "UPDATE $this->database_table SET firstName=:firstName, lastName=:lastName, updated_at=:updated_at WHERE email=:email";
+		$pdo_query = "UPDATE $this->users_table SET firstName=:firstName, lastName=:lastName, updated_at=:updated_at WHERE email=:email";
 		$pdo_request = $this->connection->prepare($pdo_query);
 		$pdo_request->execute([':firstName' => $firstName, ':lastName' => $lastName, ':updated_at' => $updated_at, ':email' => $email]);
 
@@ -161,7 +193,7 @@ class Database{
     */
     public function updateUserPassword($pass, $id){
 
-    	$pdo_query = "UPDATE $this->database_table SET password=:pass WHERE id=:id";
+    	$pdo_query = "UPDATE $this->users_table SET password=:pass WHERE id=:id";
     	$pdo_request = $this->connection->prepare($pdo_query);
     	$pdo_request->execute([':pass' => $pass, 'id' => $id]);
 
@@ -178,7 +210,7 @@ class Database{
 
     public function setUserLogged($email, $logged_param){
 
-    	$pdo_query = "UPDATE $this->database_table SET logged=:logged_param WHERE email=:email_p";
+    	$pdo_query = "UPDATE $this->users_table SET logged=:logged_param WHERE email=:email_p";
     	$pdo_request = $this->connection->prepare($pdo_query);
     	$pdo_request->execute([':logged_param' => $logged_param, ':email_p' => $email]);
 
@@ -195,7 +227,7 @@ class Database{
     */
     public function setUserResetString($reset_string, $email){
 
-    	$pdo_query = "UPDATE $this->database_table SET reset_string=:reset_string WHERE email=:email";
+    	$pdo_query = "UPDATE $this->users_table SET reset_string=:reset_string WHERE email=:email";
     	$pdo_request = $this->connection->prepare($pdo_query);
     	$pdo_request->execute([':reset_string' => $reset_string, ':email' => $email]);
 
@@ -209,7 +241,7 @@ class Database{
 	 * @param string $img 	
     */
       public function saveImg($img, $email){
-      	$pdo_query = "UPDATE $this->database_table SET image=:img WHERE email=:email";
+      	$pdo_query = "UPDATE $this->users_table SET image=:img WHERE email=:email";
       	$pdo_request = $this->connection->prepare($pdo_query);
       	$pdo_request->execute(['img' => $img, 'email' => $email]);
 
@@ -263,14 +295,14 @@ class Database{
 
 
 	/**
-	 * Check if our database_schema && database_table exists into mysql information_schema
+	 * Check if our database_schema && users_table exists into mysql information_schema
     */
 	public function dataTableExist(){
 		// $pdo_query = "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME =:database_name";
-		// $pdo_query = "SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA =:database_name AND TABLE_NAME=:database_table";		
-		$pdo_query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA =:database_name AND TABLE_NAME=:database_table";		
+		// $pdo_query = "SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA =:database_name AND TABLE_NAME=:users_table";		
+		$pdo_query = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA =:database_name AND TABLE_NAME=:users_table";		
 		$pdo_request = $this->connection->prepare($pdo_query);
-		$pdo_request->execute([':database_name' => $this->database, ':database_table' => $this->database_table]);
+		$pdo_request->execute([':database_name' => $this->database, ':users_table' => $this->users_table]);
 
 		$q_res = $pdo_request->rowCount();
 		// var_dump($q_res); exit();
