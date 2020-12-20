@@ -119,7 +119,7 @@ if($user_logged != $user_exist_db['logged'] || $user_logged == NULL || $user_exi
         </svg> -->
       </div>
       <div class="more-info">
-        <h1><?php echo($user_exist_db[firstName] != '' ? 'Welcome, '. $user_exist_db[firstName] : 'Enter First Name...'); ?></h1>
+        <h1><?php echo($user_exist_db['firstName'] != '' ? 'Welcome, '. $user_exist_db['firstName'] : 'Enter First Name...'); ?></h1>
          <div class="coords">
           <span>Last Profile Update: </span>
           <span style="font-weight:bold;color:purple"><?php echo ($user_exist_db['updated_at'] != '' ? $user_exist_db['updated_at'] : 'Unknown Time...') ?></span>

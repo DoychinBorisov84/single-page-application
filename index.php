@@ -10,6 +10,8 @@ $db = new Database();
 
 $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
 $all_users = $db->selectUsersAll();
+//TODO: Create relation into mysql between the tables. Records into `counter` -> related to
+// user_table by `id` ....
 $counterLikes = $db->selectCountUser();
 $logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
 
@@ -79,6 +81,7 @@ $error = '';
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">                  
                 <?php if(!isset($_SESSION['logged']) && empty($_SESSION['logged'])){
+                   echo '<li class="cta cta_login"><a href="#formLogin" class=""><span>Log in</span></a></li>';
                    echo '<li class="cta"><a href="#contact-section" class=""><span>Register</span></a></li>';
                }else{
                   echo '<li class="cta cta_email"><a href="logout.php" class="nav-link"><span>Log Out</span></a></li>';                  
@@ -93,7 +96,7 @@ $error = '';
     </header>
 
     <div class="intro-section" id="home-section">      
-      <div class="slide-1" style="background-image: url('images/home_1280.png');" data-stellar-background-ratio="0.5">
+      <div class="slide-1" style="background-image: url('images/home2.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-12">
@@ -163,7 +166,7 @@ $error = '';
         <div class="row">
           <div class="owl-carousel col-12 nonloop-block-14">              
               <?php foreach ($all_users as $user) { ?>
-                <div class="course bg-white h-100 align-self-stretch">
+                <div class="course bg-white h-100 align-self-stretch user-profile">
                   <figure class="m-0">
                     <a href="course-single.php?character=<?php echo $user['firstName']; ?>"><img src="<?php echo ($user["image"] != '' && file_exists($user['image']) ? $user['image'] : '/images/users/default.png' ); ?>" alt="Image Failed" class="img-fluid"></a>
                   </figure>
@@ -386,13 +389,15 @@ $error = '';
 
 
       // Like/Dislike functionality
-      // TODO: remove styling button when not logged 
       $(".container").on('click', '.liker', function(){ 
-      var logged = '<?php echo $logged; ?>';   
-        
-      switch(logged){
-        case '1':
-        console.log(logged);
+        var logged = '<?php echo json_encode($logged); ?>';
+        var logged_arr = JSON.parse(logged);
+          console.log(logged_arr.length);
+        if(logged_arr.length == 0 || logged_arr == undefined ){
+          alert('Only registered users allowed to vote');
+          return;
+        }
+          // console.log(logged);
           var name = $(this).closest(".owl-item").find("#user_name").text();      
           var clickedBtn = $(this);
 
@@ -427,11 +432,6 @@ $error = '';
               }
             }
             });  
-            break;
-            case '0':
-              alert('Only registered users allowed to vote');
-              break;
-      }
          
     });
 

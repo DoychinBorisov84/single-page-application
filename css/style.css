@@ -701,9 +701,11 @@ h1, h2, h3, h4, h5,
   .cta_email a span{
     text-transform: none !important;
     background-color: red;
-
   }
-
+  .cta_login a span{
+    text-transform: none !important;
+    background-color: rgba(55, 212, 120, 0.986);
+  }
 .cta a:hover span {
   background: #4f45e3;
   color: #fff; }
@@ -1000,10 +1002,15 @@ h1, h2, h3, h4, h5,
 
 .courses-title {
   padding-bottom: 13rem;
-  background: #7971ea; }
+  /* background: #7971ea; */
+  background-image: url('../images/users2.jpg');
+ }
   .courses-title .section-title {
-    color: #fff; }
-
+    color: #fff;
+   }
+.user-profile, .user-profile img{
+  border-radius: 10%;
+}
 .courses-entry-wrap {
   margin-top: -282px; }
   @media (max-width: 1199.98px) {

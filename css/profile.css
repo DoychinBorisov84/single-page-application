@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
 html, body {
-  background: #FCEEB5;
+  background-image:url('../images/profile2.jpg'); /* #FCEEB5; */
   font-family: Abel, Arial, Verdana, sans-serif;
 }
 
@@ -22,7 +22,7 @@ html, body {
   width: 450px;
   height: 250px;
   background-color: #fff;
-  background: linear-gradient(#f8f8f8, #fff);
+  background: linear-gradient(#f8f8f8, #bb3432);
   box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
   border-radius: 6px;
   overflow: hidden;
@@ -38,7 +38,7 @@ html, body {
   position: absolute;
   width: 150px;
   height: 100%;
-  background: linear-gradient(#dE685E, #EE786E);
+  background: linear-gradient(#7b2b25, #EE786E);
   transition: width 0.4s;
   overflow: hidden;
   z-index: 2;

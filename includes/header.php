@@ -45,7 +45,7 @@
               <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
                 <li><a href="index.php#home-section" class="nav-link">Home</a></li>
                 <li><a href="index.php#courses-section" class="nav-link">Registered Users</a></li>
-                <li><a href="index.php#user-section" class="nav-link">Top User/most clicks?</a></li>
+                <li><a href="index.php#user-section" class="nav-link">Top User</a></li>
               </ul>
             </nav>
           </div>

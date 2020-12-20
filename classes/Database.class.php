@@ -93,11 +93,11 @@ class Database{
 		$sess_email = (isset($email) ? $email : '');
 		$sess_logg = (isset($logged) ? $logged : '');
 
-		$sql = "SELECT logged FROM $this->users_table WHERE email=:email AND logged=:logged";
+		$sql = "SELECT id, firstName, email, logged FROM $this->users_table WHERE email=:email AND logged=:logged";
 		$result_sql = $this->connection->prepare($sql);
 		$result_sql->execute([':email' => $sess_email, ':logged' => $sess_logg]);
 
-		return $result_sql->rowCount();
+		return $result_sql->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 

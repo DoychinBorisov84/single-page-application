@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
 html, body {
-  background: #FCEEB5;
+  background-image:url('../images/profile2.jpg'); /* #FCEEB5; */
+  /* background: #FCEEB5; */
   font-family: Abel, Arial, Verdana, sans-serif;
 }
 
@@ -22,7 +23,7 @@ html, body {
   width: 450px;
   height: 250px;
   background-color: #fff;
-  background: linear-gradient(#f8f8f8, #fff);
+  background: linear-gradient(#f8f8f8, #bb3432);
   box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
   border-radius: 6px;
   overflow: hidden;
@@ -38,7 +39,7 @@ html, body {
   position: absolute;
   width: 150px;
   height: 100%;
-  background: linear-gradient(#dE685E, #EE786E);
+  background: linear-gradient(#7b2b25, #EE786E);
   transition: width 0.4s;
   overflow: hidden;
   z-index: 2;
@@ -234,4 +235,44 @@ html, body {
   background: rgba(0,256,0,0.5) !important;  
 }
 
+#fileToUpload{
+  /* color: transparent; */
+  color: #c1a8a8;
+}
+
+#fileToUpload::-webkit-file-upload-button {
+  visibility: hidden;
+}
+#fileToUpload::before{
+  content: 'Select image';
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 12pt;
+}
+#fileToUpload:hover::before {
+  border-color: black;
+}
+#fileToUpload:active {
+  outline: 0;
+}
+#fileToUpload-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+input[type=submit] {
+  padding:5px 15px; background:#ccc; border:0 none;
+  cursor:pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; 
+  margin-top: 5px;
+}
 

@@ -134,7 +134,7 @@ if($user_logged != $user_exist['logged'] || $user_logged == NULL || $user_exist 
         </div>
         <form action="upload.php" method="POST" enctype="multipart/form-data">
           <!-- <div class="coords"> -->
-            <span>Upload Picture</span>
+            <!-- <span>Upload Picture</span> -->
             <input type="file" id="fileToUpload" name="fileToUpload">
             <input type="submit" value="Upload Image" name="submit">
           <!-- </div>   -->
