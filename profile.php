@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'customFunctions/db_config.php';
-include 'classes/Database.class.php';
+// include 'customFunctions/db_config.php';
+require_once 'classes/Database.class.php';
 
 // Database Instance
 $db = new Database();

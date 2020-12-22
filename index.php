@@ -15,7 +15,7 @@ $all_users = $db->selectUsersAll();
 $counterLikes = $db->selectCountUser();
 $logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
 
-// echo '<pre>'.print_r($_SESSION, true).'</pre>';
+echo '<pre>'.print_r($_SESSION, true).'</pre>';
 // var_dump($logged);
 // echo '<pre>'.print_r($counterLikes, true).'</pre>';
 
@@ -27,7 +27,7 @@ $error = '';
   
   switch($errorPost){
     case 'error_incorrect_data';
-      $error = 'Enter your credentials, to access that page!';
+      $error = 'Enter your credentials to access that page!';
       break;
     case 'error_credentials';
       $error = 'Please enter your email and password correctly';
@@ -308,6 +308,8 @@ $error = '';
           //message info when mail is send
           $('#message_info').text(error);          
         }else if(error == 'Successfully logged out'){
+          $('#pass_reset').css('display', 'block');
+          $('#pass_reset').text(error);
           sessionStorage.clear();
         }else{
           //user has error for access/sign via the form
@@ -392,11 +394,14 @@ $error = '';
       $(".container").on('click', '.liker', function(){ 
         var logged = '<?php echo json_encode($logged); ?>';
         var logged_arr = JSON.parse(logged);
-          console.log(logged_arr.length);
+          console.log(logged_arr[0].email);
         if(logged_arr.length == 0 || logged_arr == undefined ){
           alert('Only registered users allowed to vote');
           return;
         }
+          var logged_user_email = logged_arr[0].email;
+          var logged_user_id = logged_arr[0].id;
+           
           // console.log(logged);
           var name = $(this).closest(".owl-item").find("#user_name").text();      
           var clickedBtn = $(this);

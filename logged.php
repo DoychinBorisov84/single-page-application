@@ -19,6 +19,7 @@ if(isset($_POST['email_login']) && isset($_POST['password_login']) && !empty($_P
 		
 		if($user_password_dehashed){
 			// var_dump('here');exit;
+			$_SESSION['id'] = $rec_exist['id'];
 			$_SESSION['email'] = $rec_exist['email'];
 			$_SESSION['firstName'] = $rec_exist['firstName'];
 			$_SESSION['lastName'] = $rec_exist['lastName'];		
