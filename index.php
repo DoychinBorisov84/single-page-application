@@ -9,14 +9,17 @@ include 'classes/Database.class.php';
 $db = new Database();
 
 $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
+
 $all_users = $db->selectUsersAll();
 //TODO: Create relation into mysql between the tables. Records into `counter` -> related to
 // user_table by `id` ....
 $counterLikes = $db->selectCountUser();
+
+// current user logged
 $logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
 
-echo '<pre>'.print_r($_SESSION, true).'</pre>';
-// var_dump($logged);
+// echo '<pre>'.print_r($_SESSION, true).'</pre>';
+var_dump($counterLikes);
 // echo '<pre>'.print_r($counterLikes, true).'</pre>';
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
@@ -390,16 +393,42 @@ $error = '';
       });
 
 
+      // Sesssion user data
+      var logged = '<?php echo json_encode($logged); ?>';
+      var logged_arr = JSON.parse(logged);
+
+      // Detect if the logged user is already liked someone      
+      if(logged !== '' && logged !== null){
+        var user_id = logged_arr[0].id;
+
+        // Extract the liked data from the DB
+        $.ajax({
+          method: "POST",
+          url: "ratings.php" ,
+          data:{
+            logged_user_id: user_id
+          },
+          success: function(response){
+            var name_liked = response; // the name returned from the db query 
+            // like the button in blue
+            // name_dom = $("span:contains('"+name_liked+"')" ).css( "color", "red" );
+            // name_dom = $("span:contains('"+name_liked+"')" ).closest('i').css('color', 'darkblue');
+            // name_dom = $("span:contains('"+name_liked+"')" ).parent().parent().next().find('.liker').css('color', 'red');
+            name_dom = $("span:contains('"+name_liked+"')" ).parent().parent().next().find('.liker').addClass('fa-active');
+          }
+        });
+        // Click the liked user button if the record exists
+      }
+
+
       // Like/Dislike functionality
       $(".container").on('click', '.liker', function(){ 
-        var logged = '<?php echo json_encode($logged); ?>';
-        var logged_arr = JSON.parse(logged);
-          console.log(logged_arr[0].email);
+          // console.log(logged_arr[0].email);
         if(logged_arr.length == 0 || logged_arr == undefined ){
           alert('Only registered users allowed to vote');
           return;
         }
-          var logged_user_email = logged_arr[0].email;
+          // var logged_user_email = logged_arr[0].email;
           var logged_user_id = logged_arr[0].id;
            
           // console.log(logged);
@@ -418,7 +447,7 @@ $error = '';
             url: "ratings.php",
             data:{
               name: name,
-              visitor_id: 'The logged User ???',
+              visitor_id: logged_user_id,
               action: action
             },
             success: function(data){
@@ -436,9 +465,9 @@ $error = '';
 
               }
             }
-            });  
+          });  
          
-    });
+      });
 
 
     });//document ready

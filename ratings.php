@@ -7,6 +7,9 @@ include 'classes/Database.class.php';
 
 $data = $_POST;
 $action = $data['action'];
+$logged_user_id = $data['logged_user_id'];
+// var_dump($data);
+
 
 // $sql = "INSERT INTO user_counter";
 // echo $data['liked'];
@@ -14,24 +17,25 @@ $action = $data['action'];
 
 $db = new Database();
 
-// TODO: limit the user to have only 1 reaction to be saved <> Database.class.php
-// - update the record only OR remove if unlike
-switch($action){
-	case 'like' :
-		$result =  $db->likeUser($data['name'], $data['visitor_id']);
-		if ($result == 1){
-			echo 'success';
-		}
-		break;
-	case 'dislike' :	
-		$result = $db->unLikeUser($data['name'], $data['visitor_id']);
-		if ($result == 1){
-			echo 'success'; 
-		}
-		break;
+if(isset($action)){
+	switch($action){
+		case 'like' :
+			$result =  $db->likeUser($data['name'], $data['visitor_id']);
+			if ($result == 1){
+				echo 'success';
+			}
+			break;
+		case 'dislike' :	
+			$result = $db->unLikeUser($data['name'], $data['visitor_id']);
+			if ($result == 1){
+				echo 'success'; 
+			}
+			break;
+	}
+}else if(isset($logged_user_id)){
+	$result = $db->checkUserReaction($logged_user_id);
+
+	echo $result['user_liked'];
 }
 
-
-
-// var_dump($db->likeUser($data['liked'], $data['who_clicked']));
 

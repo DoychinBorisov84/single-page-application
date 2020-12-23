@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'customFunctions/db_config.php';
+// include 'customFunctions/db_config.php';
 include 'customFunctions/config.php';
 include 'classes/Database.class.php';
 
