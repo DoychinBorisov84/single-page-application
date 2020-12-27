@@ -55,11 +55,20 @@ class Database{
     }
 
 	/**
-	 * Select All users from the database. Returns user as AssocArray	
-	 * @param string $ 
+	 * Select User data from tbl-users and count likes from tbl-counter_table per user. Returns user data as AssocArray	
+	 *
     */
 	public function selectUsersAll(){
-		$sql = "SELECT * FROM $this->users_table ORDER BY ID";
+		// Joined result from the 2 db-tables
+		$sql = "SELECT $this->users_table.firstName, $this->users_table.image, $this->counter_table.user_id,
+				(SELECT COUNT(*) FROM $this->counter_table WHERE $this->users_table.firstName = $this->counter_table.user_liked) AS likes
+				FROM $this->users_table
+				LEFT JOIN $this->counter_table
+				ON $this->users_table.id = $this->counter_table.user_id";
+
+		// Return the count of the users
+		// $sql = "SELECT user_liked, COUNT(*) FROM $this->counter_table GROUP BY user_liked";
+
 		$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
 
 		$users = [];
@@ -69,21 +78,6 @@ class Database{
 	 return $users;
 	}
 
-	/**
-	 * Count likes per user from the database. Returns user as AssocArray	
-	 * @param string $ 
-	*/
-	public function selectCountUser(){
-		$sql = "SELECT COUNT(ID) AS LikedUsers FROM $this->counter_table";
-		// var_dump($sql);
-		$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
-
-		$users = [];
-		foreach ($result_sql as $user) {			
-			$users[] = $user;
-		}
-	 return $users;
-	}
 
 	/**
 	 * Check the user session in the DB	
@@ -257,18 +251,18 @@ class Database{
 	 * return rows affected
     */
       public function likeUser($user_liked, $visitor_id){
-      	$user_reacted = "SELECT * FROM $this->counter_table WHERE visitor_id=:visitor_id";
+      	$user_reacted = "SELECT * FROM $this->counter_table WHERE user_id=:visitor_id";
       	$user_reacted_q = $this->connection->prepare($user_reacted);
       	$user_reacted_q->execute([':visitor_id' => $visitor_id]);
       	
       	if ($user_reacted_q->rowCount() == 0 ){
-      		$pdo_query_ins = "INSERT INTO $this->counter_table (user_liked, visitor_id, created_at) VALUES(:user_liked, :visitor_id, now() ) ";
+      		$pdo_query_ins = "INSERT INTO $this->counter_table (user_liked, user_id, created_at) VALUES(:user_liked, :visitor_id, now() ) ";
 	      	$pdo_request_ins = $this->connection->prepare($pdo_query_ins);
 	      	$pdo_request_ins->execute([':user_liked' => $user_liked, ':visitor_id' => $visitor_id]);
 
 	      	return $pdo_request_ins->rowCount();
       	}else{
-      		$pdo_query_upd = "UPDATE $this->counter_table SET user_liked=:user_liked, created_at=now() WHERE visitor_id=:visitor_id ";
+      		$pdo_query_upd = "UPDATE $this->counter_table SET user_liked=:user_liked, created_at=now() WHERE user_id=:visitor_id ";
 	      	$pdo_request_upd = $this->connection->prepare($pdo_query_upd);
 	      	$pdo_request_upd->execute([':user_liked' => $user_liked, 'visitor_id' => $visitor_id]);
 
@@ -282,7 +276,7 @@ class Database{
 	 * return rows affected
     */
       public function unLikeUser($user_liked, $visitor_id){
-      	$pdo_query = "DELETE FROM $this->counter_table WHERE user_liked=:user_liked AND visitor_id=:visitor_id ";
+      	$pdo_query = "DELETE FROM $this->counter_table WHERE user_liked=:user_liked AND user_id=:visitor_id ";
       	$pdo_request = $this->connection->prepare($pdo_query);
       	$pdo_request->execute(['user_liked' => $user_liked, 'visitor_id' => $visitor_id]);
 
@@ -295,7 +289,7 @@ class Database{
 	 * @param string check_user_id
 	 */
 	public function checkUserReaction($logged_user_id){
-		$pdo_query = "SELECT user_liked FROM $this->counter_table WHERE visitor_id=:logged_user_id ";
+		$pdo_query = "SELECT user_liked FROM $this->counter_table WHERE user_id=:logged_user_id ";
 		$pdo_request = $this->connection->prepare($pdo_query);
 		$pdo_request->execute([':logged_user_id' => $logged_user_id ]);
 

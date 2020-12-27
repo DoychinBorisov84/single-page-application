@@ -34,7 +34,7 @@ if(isset($action)){
 	}
 }else if(isset($logged_user_id)){
 	$result = $db->checkUserReaction($logged_user_id);
-
+	
 	echo $result['user_liked'];
 }
 

@@ -10,17 +10,15 @@ $db = new Database();
 
 $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
 
+// TODO: work on the related DB tables to combine the result
 $all_users = $db->selectUsersAll();
-//TODO: Create relation into mysql between the tables. Records into `counter` -> related to
-// user_table by `id` ....
-$counterLikes = $db->selectCountUser();
 
 // current user logged
 $logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
 
 // echo '<pre>'.print_r($_SESSION, true).'</pre>';
-var_dump($counterLikes);
-// echo '<pre>'.print_r($counterLikes, true).'</pre>';
+// var_dump($counterLikes);
+// echo '<pre>'.print_r($all_users, true).'</pre>';
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
 
@@ -181,7 +179,7 @@ $error = '';
                   </div>
                   <div class="d-flex border-top stats">                    
                     <i class="fa-like fa fa-thumbs-up liker"></i>
-                    <div class="py-3 px-4"><span class="icon-users"></span> *** likes</div>
+                    <div class="py-3 px-4"><span class="icon-users"></span><span id="num_likes" style="font: italic bold 26px Georgia, serif; color: #009973;"><?php echo $user['likes'];?></span> like(s)</div>
                     <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
                   </div>
                 </div>
@@ -396,9 +394,9 @@ $error = '';
       // Sesssion user data
       var logged = '<?php echo json_encode($logged); ?>';
       var logged_arr = JSON.parse(logged);
-
+      
       // Detect if the logged user is already liked someone      
-      if(logged !== '' && logged !== null){
+      if(logged_arr.length !== 0){
         var user_id = logged_arr[0].id;
 
         // Extract the liked data from the DB
@@ -409,12 +407,12 @@ $error = '';
             logged_user_id: user_id
           },
           success: function(response){
-            var name_liked = response; // the name returned from the db query 
-            // like the button in blue
-            // name_dom = $("span:contains('"+name_liked+"')" ).css( "color", "red" );
-            // name_dom = $("span:contains('"+name_liked+"')" ).closest('i').css('color', 'darkblue');
-            // name_dom = $("span:contains('"+name_liked+"')" ).parent().parent().next().find('.liker').css('color', 'red');
-            name_dom = $("span:contains('"+name_liked+"')" ).parent().parent().next().find('.liker').addClass('fa-active');
+           var name_liked = response; // the name returned from the db query 
+
+           if(name_liked){
+            $("span:contains('"+name_liked+"')" ).parent().parent().next().find('.liker').addClass('fa-active');
+           }
+            
           }
         });
         // Click the liked user button if the record exists
@@ -430,10 +428,12 @@ $error = '';
         }
           // var logged_user_email = logged_arr[0].email;
           var logged_user_id = logged_arr[0].id;
-           
-          // console.log(logged);
-          var name = $(this).closest(".owl-item").find("#user_name").text();      
+                    
           var clickedBtn = $(this);
+          var name = $(this).closest(".owl-item").find("#user_name").text();      
+          var current_num_likes = $(this).next().find('#num_likes').text();
+          current_num_likes = parseInt(current_num_likes);
+          // console.log(current_num_likes);
 
           if( clickedBtn.hasClass('fa-active') ){
             action = 'dislike';
@@ -452,14 +452,18 @@ $error = '';
             },
             success: function(data){
               if( action == 'like' ){
-                  $('.fa-like').removeClass('fa-active');
-                  clickedBtn.addClass('fa-active');
                   if(data == 'success'){
+                    var incr = current_num_likes+1;
+                    $('.fa-like').removeClass('fa-active');
+                    clickedBtn.addClass('fa-active');
+                    clickedBtn.next().find('#num_likes').text(incr);
                     alert("You liked" + ": " +  name);
                   }
               }else if( action == 'dislike' ){
-                clickedBtn.removeClass('fa-active');
                 if(data == 'success'){
+                  var decr = current_num_likes-1;
+                  clickedBtn.removeClass('fa-active');
+                  clickedBtn.next().find('#num_likes').text(decr);
                   alert("You disLiked" + ": " +  name);
                 }
 
