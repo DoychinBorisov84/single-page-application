@@ -17,7 +17,7 @@ $all_users = $db->selectUsersAll();
 $logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
 
 // echo '<pre>'.print_r($_SESSION, true).'</pre>';
-// var_dump($counterLikes);
+
 // echo '<pre>'.print_r($all_users, true).'</pre>';
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
@@ -410,7 +410,7 @@ $error = '';
            var name_liked = response; // the name returned from the db query 
 
            if(name_liked){
-            $("span:contains('"+name_liked+"')" ).parent().parent().next().find('.liker').addClass('fa-active');
+            $("span:contains('"+name_liked+"')" ).parent().parent().next().find('.liker').addClass('fa-active'); // set the active class for the db-liked name
            }
             
           }
@@ -418,7 +418,7 @@ $error = '';
         // Click the liked user button if the record exists
       }
 
-
+      
       // Like/Dislike functionality
       $(".container").on('click', '.liker', function(){ 
           // console.log(logged_arr[0].email);
@@ -426,14 +426,12 @@ $error = '';
           alert('Only registered users allowed to vote');
           return;
         }
-          // var logged_user_email = logged_arr[0].email;
           var logged_user_id = logged_arr[0].id;
                     
           var clickedBtn = $(this);
-          var name = $(this).closest(".owl-item").find("#user_name").text();      
-          var current_num_likes = $(this).next().find('#num_likes').text();
-          current_num_likes = parseInt(current_num_likes);
-          // console.log(current_num_likes);
+          var currentClickedName = clickedBtn.closest(".owl-item").find("#user_name").text();      
+          var currentClickedLikes = parseInt(clickedBtn.next().find('#num_likes').text());
+          // console.log(currentClickedLikes);
 
           if( clickedBtn.hasClass('fa-active') ){
             action = 'dislike';
@@ -446,25 +444,34 @@ $error = '';
             method: "POST",
             url: "ratings.php",
             data:{
-              name: name,
+              name: currentClickedName,
               visitor_id: logged_user_id,
               action: action
             },
             success: function(data){
+              // TODO: reduce the unliked/change-liked user counter FE visual data
               if( action == 'like' ){
-                  if(data == 'success'){
-                    var incr = current_num_likes+1;
+                  if(data == 'liked'){
+                    // TODO: the first reduce doesn't show...
+                    var currentLikedCount = parseInt($('i.fa-active').next().find('#num_likes').first().text());
+                    var reducer = currentLikedCount-1;
+                    var currentLikedName = $('i.fa-active').parent().parent().find('#user_name').first().text();
+                    $('span:contains('+currentLikedName+')').parent().parent().next().find('#num_likes').text(reducer);
+
+                    // console.log(currentLikedName);
+                   
+                    var incr = currentClickedLikes+1;
                     $('.fa-like').removeClass('fa-active');
                     clickedBtn.addClass('fa-active');
                     clickedBtn.next().find('#num_likes').text(incr);
-                    alert("You liked" + ": " +  name);
+                    alert("You liked" + ": " +  currentClickedName);
                   }
               }else if( action == 'dislike' ){
-                if(data == 'success'){
-                  var decr = current_num_likes-1;
+                if(data == 'unliked'){
+                  var decr = currentClickedLikes-1;
                   clickedBtn.removeClass('fa-active');
                   clickedBtn.next().find('#num_likes').text(decr);
-                  alert("You disLiked" + ": " +  name);
+                  alert("You disLiked" + ": " +  currentClickedName);
                 }
 
               }

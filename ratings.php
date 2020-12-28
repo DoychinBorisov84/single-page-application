@@ -22,13 +22,13 @@ if(isset($action)){
 		case 'like' :
 			$result =  $db->likeUser($data['name'], $data['visitor_id']);
 			if ($result == 1){
-				echo 'success';
+				echo 'liked';
 			}
 			break;
 		case 'dislike' :	
 			$result = $db->unLikeUser($data['name'], $data['visitor_id']);
 			if ($result == 1){
-				echo 'success'; 
+				echo 'unliked'; 
 			}
 			break;
 	}
