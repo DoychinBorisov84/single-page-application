@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
 html, body {
-  background-image:url('../images/profile2.jpg'); /* #FCEEB5; */
+  background-image:url('../images/profile2.jpg');
   /* background: #FCEEB5; */
   font-family: Abel, Arial, Verdana, sans-serif;
 }
@@ -17,13 +17,15 @@ html, body {
   top: 20%;
   left: 50%;  
   -webkit-transform: translate(-50%, -50%);
-}@media screen and (max-height: 500px){
+}
+@media screen and (max-height: 500px){
   .center-buttons {
     position: absolute;
     top: 8%;
     left: 50%;  
     -webkit-transform: translate(-50%, -50%);  
   }
+}
 
 .card {
   width: 450px;

@@ -10,17 +10,12 @@ $db = new Database();
 
 $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
 
-// TODO: work on the related DB tables to combine the result
 $all_users = $db->selectUsersAll();
 
 $top_user = $db->selectUsersAll($topUser=true);
 
 // current user logged
 $logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
-
-// echo '<pre>'.print_r($_SESSION, true).'</pre>';
-
-// echo '<pre>'.print_r($top_user, true).'</pre>';
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
 

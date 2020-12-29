@@ -256,7 +256,7 @@ class Database{
       public function saveImg($img, $email){
       	$pdo_query = "UPDATE $this->users_table SET image=:img WHERE email=:email";
       	$pdo_request = $this->connection->prepare($pdo_query);
-      	$pdo_request->execute(['img' => $img, 'email' => $email]);
+      	$pdo_request->execute([':img' => $img, ':email' => $email]);
 
       	$q_res = $pdo_request->rowCount();
 

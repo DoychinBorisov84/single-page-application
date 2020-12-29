@@ -30,7 +30,3 @@ if($user_logged != $user_exist['logged']  || $user_logged == NULL || $user_exist
 	$_SESSION['firstName'] = $ajax_firstName;
 	$_SESSION['lastName'] = $ajax_lastName;
 }
-
-
-
-?>

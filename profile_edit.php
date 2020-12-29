@@ -21,11 +21,8 @@ if($user_logged != $user_exist['logged'] || $user_logged == NULL || $user_exist 
   session_destroy();
   $login_error = 'restricted';
   header("Location: http://single-page-application.lan/index.php?error=".$login_error.'#home-section');
-  exit();
 	die('Unauthorized access');
 }
-
-// var_dump($_SESSION);
 
 ?>
 
@@ -139,7 +136,7 @@ if($user_logged != $user_exist['logged'] || $user_logged == NULL || $user_exist 
             <input type="submit" value="Upload Image" name="submit">
           <!-- </div>   -->
         </form>        
-         <span id="message" style="color:red;"></span>
+         <span id="message" style="color:white;font-weight:bold"></span>
         <!--  <img src="<?php echo ($user_exist['image'] != '' ? $user_exist['image'] : 'images/users/default.png') ?>" alt="FAIL" style="background-color: yellow;width:60px; height:60px; display:block;"> -->
          <!-- <div class="coords">
           <span>Professional Occupation</span>
@@ -201,20 +198,18 @@ if($user_logged != $user_exist['logged'] || $user_logged == NULL || $user_exist 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>	
   <script>
    $(document).ready(function() {
-    var get_msg = '<?php echo $_GET['msg']; ?>';
+    var get_msg = '<?php echo ($_GET['msg'] != '' ? $_GET['msg'] : ''); ?>';
     // alert(get_msg);
     if(get_msg == 'img_exist'){
-      $('#message').text('Sorry, file already exists.');
+      $('#message').text('Sorry, file with same name already exists!');
     }else if(get_msg == 'img_size_err'){
-      $('#message').text('Sorry, up to 3MB for image is allowed');      
+      $('#message').text('Sorry, only valid files up to 2MB for image is allowed!');      
     }else if(get_msg == 'img_type_err'){
-      $('#message').text('Sorry, only JPG, JPEG, PNG & GIF files are allowed.');            
-    }else if(get_msg == 'img_err'){
-      $('#message').text('Sorry, your file was not uploaded due to one of the requirements'); 
+      $('#message').text('Sorry, only JPG, JPEG, PNG & GIF files are allowed!');            
     }else if(get_msg == 'img_success'){
       $('#message').text('Your profile picture was updated!');       
     }else if(get_msg == 'img_fail'){
-      $('#message').text('Sorry, your file seems ok. But there was an server side error!');    
+      $('#message').text('Sorry, there was an error uploading the file on server!');    
     }else{
       $('#message').text('');
     }
