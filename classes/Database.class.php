@@ -58,9 +58,27 @@ class Database{
 	 * Select User data from tbl-users and count likes from tbl-counter_table per user. Returns user data as AssocArray	
 	 *
     */
-	public function selectUsersAll(){
+	public function selectUsersAll($topUser=NULL){
 		// Joined result from the 2 db-tables
-		$sql = "SELECT $this->users_table.firstName, $this->users_table.image, $this->counter_table.user_id,
+		if($topUser === true){
+			$sql = "SELECT $this->users_table.firstName, $this->users_table.image, $this->counter_table.user_id,
+				(SELECT COUNT(*) FROM $this->counter_table WHERE $this->users_table.firstName = $this->counter_table.user_liked) AS likes
+				FROM $this->users_table
+				LEFT JOIN $this->counter_table
+				ON $this->users_table.id = $this->counter_table.user_id
+				ORDER BY likes DESC
+				LIMIT 1";
+
+			$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
+
+			$users = [];
+			foreach ($result_sql as $user) {			
+				$users[] = $user;
+			}
+
+		 return $users;
+		}else{
+			$sql = "SELECT $this->users_table.firstName, $this->users_table.image, $this->counter_table.user_id,
 				(SELECT COUNT(*) FROM $this->counter_table WHERE $this->users_table.firstName = $this->counter_table.user_liked) AS likes
 				FROM $this->users_table
 				LEFT JOIN $this->counter_table
@@ -68,14 +86,15 @@ class Database{
 
 		// Return the count of the users
 		// $sql = "SELECT user_liked, COUNT(*) FROM $this->counter_table GROUP BY user_liked";
+			$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
 
-		$result_sql = $this->connection->query($sql, PDO::FETCH_ASSOC);
+			$users = [];
+			foreach ($result_sql as $user) {			
+				$users[] = $user;
+			}
 
-		$users = [];
-		foreach ($result_sql as $user) {			
-			$users[] = $user;
+		 return $users;
 		}
-	 return $users;
 	}
 
 

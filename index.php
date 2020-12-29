@@ -13,12 +13,14 @@ $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
 // TODO: work on the related DB tables to combine the result
 $all_users = $db->selectUsersAll();
 
+$top_user = $db->selectUsersAll($topUser=true);
+
 // current user logged
 $logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
 
 // echo '<pre>'.print_r($_SESSION, true).'</pre>';
 
-// echo '<pre>'.print_r($all_users, true).'</pre>';
+// echo '<pre>'.print_r($top_user, true).'</pre>';
 
 $password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
 
@@ -203,10 +205,11 @@ $error = '';
       <div class="container">
         <div class="row justify-content-center align-items-center">
           <div class="col-md-8 text-center testimony">
-            <img src="images/captain_1280.jpg" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
-            <h3 class="mb-4">User #</h3>
+            <!-- TODO: update changes top-user without reload -->
+            <img src="<?php echo ($top_user[0]["image"] != '' && file_exists($top_user[0]['image']) ? $top_user[0]['image'] : '/images/users/default.png' ); ?>" alt="Image" class="img-fluid w-25 mb-4 rounded-circle">
+            <!-- <h3 class="mb-4">Most Liked User</h3> -->
             <blockquote>
-              <p>&ldquo; Our most viewed user goes here ! &rdquo;</p>
+              <p>&ldquo; Current Top User : <strong><?php echo ($top_user[0]['firstName'] ? $top_user[0]['firstName'] : 'Unknown'); ?></strong> &rdquo;</p>
             </blockquote>
           </div>
         </div>
