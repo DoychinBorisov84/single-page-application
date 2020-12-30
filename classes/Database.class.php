@@ -1,13 +1,12 @@
 <?php
 
-// Credentials for the Database
 class Database{
 
 	private $username = 'root';
 	private $password = 'root';
-	private $database = 'single_page_application';
+	private $database = 'users_administration';
 	private $host = 'localhost';
-	private $dsn = "mysql:host=localhost;dbname=single_page_application";
+	private $dsn = "mysql:host=localhost;dbname=users_administration";
 	private $charset = 'utf8mb4';
 	private $users_table = 'users';
 	private $counter_table = 'user_counter';

@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-include 'customFunctions/db_config.php';
-include 'classes/Database.class.php';
+require_once 'classes/Database.class.php';
 
 // New db-object
 $db = new Database();
@@ -58,11 +57,10 @@ if($user_exist){
 		    // Content
 		    $mail->isHTML(true);                                  // Set email format to HTML
 		    $mail->Subject = 'Reset your email';
-		    // $mail->Body    = 'Click the link to reset your password:'.'<a>'.'single-page-application.lan/index.php?reset_password='.$reset_string.'</a>';
 		    $mail->Body    = '<html>
 		    					<body>
 		    						<p>Click the link to reset your password:</p>
-		    						<a href="http://single-page-application.lan/index.php?reset_password='.$reset_string.'#contact-section">Reset Password</a>
+		    						<a href="http://user-administration.lan/index.php?reset_password='.$reset_string.'#contact-section">Reset Password</a>
 		    					</body>
 		    					</html>
 		    ';
@@ -71,7 +69,7 @@ if($user_exist){
 		    $mail->send();
 
 			$message = 'reset_password';
-			header("Location: index.php?error=".$message."#message-section");
+			header("Location: index.php?url_action=".$message."#message-section");
 			exit();
 		}catch (Exception $e) {
 	 	 	echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
@@ -85,7 +83,6 @@ if($user_exist){
 }else{
 	// Reset the password case?
 	$reset_error = 'mailNotFound';
-	// header("Location: index.php");
-	header("Location: http://single-page-application.lan/index.php?error=".$reset_error);
+	header("Location: http://user-administration.lan/index.php?url_action=".$reset_error);
 	exit();
 }

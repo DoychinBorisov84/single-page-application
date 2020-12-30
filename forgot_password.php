@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,15 +28,14 @@
 </div>  
 
 <script type="text/javascript" charset="utf-8" >
-$('#login-button').click(function(){
-  $('#login-button').fadeOut("slow",function(){
-    // $("#container").fadeIn();
-    $("#forgotten-container").fadeIn();
-    TweenMax.from("#forgotten-container", .4, { scale: 0, ease:Sine.easeInOut});
-    TweenMax.to("#forgotten-container", .4, { scale: 1, ease:Sine.easeInOut});
+  $('#login-button').click(function(){
+    $('#login-button').fadeOut("slow",function(){
+      // $("#container").fadeIn();
+      $("#forgotten-container").fadeIn();
+      TweenMax.from("#forgotten-container", .4, { scale: 0, ease:Sine.easeInOut});
+      TweenMax.to("#forgotten-container", .4, { scale: 1, ease:Sine.easeInOut});
+    });
   });
-});
-
 </script>
 </body>
 </html>

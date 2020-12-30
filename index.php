@@ -2,8 +2,7 @@
 session_start();
 
 include_once 'customFunctions/config.php';
-require_once  'customFunctions/db_config.php';
-include 'classes/Database.class.php';
+require_once 'classes/Database.class.php';
 
 // Database Instance
 $db = new Database();
@@ -14,66 +13,67 @@ $all_users = $db->selectUsersAll();
 
 $top_user = $db->selectUsersAll($topUser=true);
 
-// current user logged
-$logged = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
+$logged_user = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
 
-$password_changed = $_GET['password_changed'] != '' ? $_GET['password_changed'] : '';
-
-if(isset($_GET['error']) && !empty($_GET['error'])){
-$errorPost = $_GET['error'];
-$error = '';
+if(isset($_GET['url_action']) && !empty($_GET['url_action'])){
+$url_action = $_GET['url_action'];
   
-  switch($errorPost){
+  switch($url_action){
     case 'error_incorrect_data';
-      $error = 'Enter your credentials to access that page!';
+      $help_msg = 'Enter your credentials to access that page!';
       break;
     case 'error_credentials';
-      $error = 'Please enter your email and password correctly';
+      $help_msg = 'Please enter your email and password correctly';
       break;
     case 'restricted';
-      $error = 'Unauthorized Access';
+      $help_msg = 'Unauthorized Access';
       break;
     case 'logout';
-      $error = 'Successfully logged out';
+      $help_msg = 'Successfully logged out';
       break;
     case 'incorrect_data';
-      $error = 'Please fill all the fields correctly';
+      $help_msg = 'Please fill all the fields correctly';
       break;
     case 'user_exist';
-      $error = 'There is a registration with that email';
+      $help_msg = 'There is a registration with that email';
       break;
     case 'user_registered';
-      $error = 'Please login with your credentials';
+      $help_msg = 'Please login with your credentials';
       break;
     case 'error_exists';
-      $error = 'Email not found';
+      $help_msg = 'Email not found';
       break;
     case 'profile_deleted';
-      $error = 'The Profile has been successfully deleted';
+      $help_msg = 'The Profile has been successfully deleted';
       break;
     case 'profile_created';
-      $error = 'The Profile has been successfully created';
+      $help_msg = 'The Profile has been successfully created';
       break;
     case 'db_fail';
-      $error = 'Sorry. There is a problem with the database!';
+      $help_msg = 'Sorry. There is a problem with the database!';
       break;
     case 'message_sent';
-      $error = 'Message sent';
+      $help_msg = 'Message sent';
       break;
     case 'reset_password';
-      $error = 'Check your email, and reset the password';
+      $help_msg = 'Check your email, and reset the password';
       break;
     case 'mailNotFound';
-      $error = 'Not existing email, please check, or try login!';
+      $help_msg = 'Not existing email, please check, or try login!';
+      break;
+    case 'password_changed':
+      $help_msg = 'password_changed';
       break;
     default: 
-        $error = '';
+      $help_msg = '';
   }
 }
 ?>
 
 <!-- header -->
 <?php include 'includes/header.php'; ?>
+
+<!-- <p>Content here. <a class="show-alert" href=#>Alert!</a></p> -->
 
           <div class="ml-auto w-25">
             <nav class="site-navigation position-relative text-right" role="navigation">
@@ -94,7 +94,7 @@ $error = '';
     </header>
 
     <div class="intro-section" id="home-section">      
-      <div class="slide-1" style="background-image: url('images/home2.jpg');" data-stellar-background-ratio="0.5">
+      <div class="slide-1" style="background-image: url('images/home.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-12">
@@ -149,7 +149,7 @@ $error = '';
     </div>
 
     
-    <div class="site-section courses-title" id="courses-section">
+    <div class="site-section users-title" id="courses-section">
       <div class="container">
         <div class="row mb-5 justify-content-center">
           <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
@@ -169,14 +169,13 @@ $error = '';
                     <a href="course-single.php?character=<?php echo $user['firstName']; ?>"><img src="<?php echo ($user["image"] != '' && file_exists($user['image']) ? $user['image'] : '/images/users/default.png' ); ?>" alt="Image Failed" class="img-fluid"></a>
                   </figure>
                   <div class="course-inner-text py-4 px-4">
-                    <!-- <span class="course-price">$20</span> -->
-                    <div class="meta"><span class="icon-clock-o"></span><span id="user_name"><?php echo $user["firstName"]; ?></span></div>
-                    <h3><a href="#">User data</a></h3>
-                    <p>User data</p>
+                    <div class="meta"><span class="fa fa-user-o"></span><span id="user_name"><?php echo $user["firstName"]; ?></span></div>
+                    <!-- <h3><a href="#">User data</a></h3> -->
+                    <!-- <p>User data</p> -->
                   </div>
                   <div class="d-flex border-top stats">                    
                     <i class="fa-like fa fa-thumbs-up liker"></i>
-                    <div class="py-3 px-4"><span class="icon-users"></span><span id="num_likes" style="font: italic bold 26px Georgia, serif; color: #009973;"><?php echo $user['likes'];?></span> like(s)</div>
+                    <div class="py-3 px-4"><span class="icon-users"></span><span id="num_likes" style="font: italic bold 26px Georgia, serif; color: #009973;"><?php echo "\t".$user['likes'];?></span> like(s)</div>
                     <!-- <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div> -->
                   </div>
                 </div>
@@ -196,7 +195,7 @@ $error = '';
 
     
 
-    <div class="site-section bg-image overlay" id="user-section" style="background-image: url('images/cloud-background.jpg');">
+    <div class="site-section bg-image overlay" id="user-section" style="background-image: url('images/top_usr_bgr.jpg');">
       <div class="container">
         <div class="row justify-content-center align-items-center">
           <div class="col-md-8 text-center testimony">
@@ -296,30 +295,35 @@ $error = '';
 <!-- JS section -->
 <script type="text/javascript">
    $(document).ready(function(){  
-      var error = '<?php echo $error; ?>';  // get the $_GET param if failed login
-      var password_changed = '<?php echo $password_changed; ?>';      
+      var helpMsg = '<?php echo $help_msg; ?>';  // get the $_GET url-param
    
       //add the text to the empty input-field for the error message
-      if( error || error.length !== 0 ){
-        if(error == 'There is a registration with that email'){
-          $('#register_info').text(error);  
-        }else if(error == 'Message sent'){
-          //message info when mail is send
-          $('#message_info').text(error);          
-        }else if(error == 'Successfully logged out'){
-          $('#pass_reset').css('display', 'block');
-          $('#pass_reset').text(error);
-          sessionStorage.clear();
-        }else{
-          //user has error for access/sign via the form
-          $('#login_info').text(error);
-        }        
-      }
+      if( helpMsg || helpMsg.length != 0 ){
+        switch (helpMsg) {
+          case 'There is a registration with that email':
+            $('#register_info').text(helpMsg);
+            break;
 
-      if(password_changed == 'success'){
-        $('#pass_reset').css('display', 'block');
-      }
+          case 'Message sent':
+            $('#message_info').text(helpMsg);          
+            break;
 
+          case 'Successfully logged out':
+            $('#pass_reset').css('display', 'block');
+            $('#pass_reset').text(helpMsg);
+            sessionStorage.clear();
+            break;
+          
+          case 'password_changed':
+            $('#pass_reset').css('display', 'block');
+            break;
+
+          default:
+            $('#login_info').text(helpMsg);
+            break;
+        }
+              
+      }
 
       var email_login_session = (sessionStorage.getItem('email_login') != 'undefined') ? sessionStorage.getItem('email_login') : '';  
       var firstName_session = (sessionStorage.getItem('firstName') != 'undefined') ? sessionStorage.getItem('firstName') : '';  
@@ -344,7 +348,7 @@ $error = '';
       // Function for comparing pass/repass, set msg, set reg_check for form to enable        
       function passwordCompare(pass, repass){
         var pass_check = false;
-        // console.log(pass+' & '+repass);
+        
         if ( pass == repass ) {
           if( pass.length < 6){
             $('#message').html('Password must be at least 6 characters').css('color', 'red');
@@ -353,24 +357,23 @@ $error = '';
            $('#message').html('').css('color', '');
            pass_check = true;
           }
-          // $('#message').html('').css('color', '');          
         } else {
           pass_check = false;
           $('#message').html('Passwords don\'t match').css('color', 'red');
         }
-        return pass_check;
-        // console.log(pass_check);
+
+       return pass_check;
       }
 
       // Register Form
       var register_pass_check = false;
       $('#password_reg, #repassword').on('keyup', function(){
         var check = passwordCompare($('#password_reg').val(), $('#repassword').val());
-        // console.log(check);
+        
         register_pass_check = check;
       });      
        $('#formRegister').submit(function(event){
-        if(register_pass_check == false){
+        if(register_pass_check === false){
           event.preventDefault();
         }
       });
@@ -379,7 +382,6 @@ $error = '';
       var reset_pass_check = false;
       $('#resetpassword, #reresetpassword').on('keyup', function(){
         var check = passwordCompare($('#resetpassword').val(), $('#reresetpassword').val());
-        // console.log(check);
         reset_pass_check = check;
       });
       $('#formReset').submit(function(event){
@@ -390,10 +392,10 @@ $error = '';
 
 
       // Sesssion user data
-      var logged = '<?php echo json_encode($logged); ?>';
+      var logged = '<?php echo json_encode($logged_user); ?>';
       var logged_arr = JSON.parse(logged);
       
-      // Detect if the logged user is already liked someone      
+      // Detect logged user has already liked someone      
       if(logged_arr.length !== 0){
         var user_id = logged_arr[0].id;
 
@@ -413,7 +415,6 @@ $error = '';
             
           }
         });
-        // Click the liked user button if the record exists
       }
 
       
@@ -429,7 +430,6 @@ $error = '';
           var clickedBtn = $(this);
           var currentClickedName = clickedBtn.closest(".owl-item").find("#user_name").text();      
           var currentClickedLikes = parseInt(clickedBtn.next().find('#num_likes').text());
-          // console.log(currentClickedLikes);
 
           if( clickedBtn.hasClass('fa-active') ){
             action = 'dislike';
@@ -447,17 +447,16 @@ $error = '';
               action: action
             },
             success: function(data){
-              // TODO: reduce the unliked/change-liked user counter FE visual data
               if( action == 'like' ){
                   if(data == 'liked'){
-                    // TODO: the first reduce doesn't show...
+                    
+                    // reduce the current liked-user count
                     var currentLikedCount = parseInt($('i.fa-active').next().find('#num_likes').first().text());
                     var reducer = currentLikedCount-1;
                     var currentLikedName = $('i.fa-active').parent().parent().find('#user_name').first().text();
                     $('span:contains('+currentLikedName+')').parent().parent().next().find('#num_likes').text(reducer);
 
-                    // console.log(currentLikedName);
-                   
+                    // increment the clicked user count
                     var incr = currentClickedLikes+1;
                     $('.fa-like').removeClass('fa-active');
                     clickedBtn.addClass('fa-active');
@@ -478,12 +477,13 @@ $error = '';
          
       });
 
+      // $(document).on("click", ".show-alert", function(e) {
+      //     bootbox.alert("Hello world!", function() {
+      //         console.log("Alert Callback");
+      //     });
+      // });
 
     });//document ready
-  
-   
-   
-
         
 </script>
   

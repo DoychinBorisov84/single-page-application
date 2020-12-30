@@ -18,7 +18,7 @@ if($user_logged != $user_exist['logged']  || $user_logged == NULL || $user_exist
 	session_unset();
 	session_destroy();
 	$login_error = 'restricted';
-	header("Location: index.php?error=".$login_error);	
+	header("Location: index.php?url_action=".$login_error);	
 	die('Unauthorized privileges to edit profile');
 }else{
 	$ajax_firstName = $_POST['firstName'];

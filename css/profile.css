@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
 html, body {
-  background-image:url('../images/profile2.jpg'); /* #FCEEB5; */
+  background-image:url('../images/profile.jpg'); /* #FCEEB5; */
   font-family: Abel, Arial, Verdana, sans-serif;
 }
 
@@ -211,15 +211,20 @@ html, body {
   border-color: rgba(0,0,0,0.15);
   white-space: nowrap;
 }
+
 #back_btn{ 
   color: #fff; 
   font-weight: bold;
   background: rgba(128,128,128,1.0) !important;  
 }
+
 #save_btn{ 
   color: #fff; 
   font-weight: bold;
   background: rgba(0,256,0,0.5) !important;  
 }
 
-
+.profile_span{
+  font-weight:bold;
+  color:purple;
+}

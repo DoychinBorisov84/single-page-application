@@ -876,7 +876,7 @@ h1, h2, h3, h4, h5,
       background-color: #7971ea; }
 
 .footer-section {
-  padding: 7em 0;
+  padding-top: 7em;
   background-color: #fafafa; }
   .footer-section p {
     font-size: 1rem; }
@@ -1000,12 +1000,12 @@ h1, h2, h3, h4, h5,
   color: #343a40;
   font-size: 1rem; }
 
-.courses-title {
+.users-title {
   padding-bottom: 13rem;
   /* background: #7971ea; */
-  background-image: url('../images/users2.jpg');
+  background-image: url('../images/users.jpg');
  }
-  .courses-title .section-title {
+  .users-title .section-title {
     color: #fff;
    }
 .user-profile, .user-profile img{
@@ -1184,6 +1184,14 @@ h1, h2, h3, h4, h5,
   color: darkblue;
 }
 
+#user_name{
+  font: italic small-caps bold 1.5em Garamond, serif;
+}
+
+.profile_span{
+  font-weight:bold;
+  color:purple;
+}
 
 /*img of the carousel to expand*/
 /*.owl-carousel .owl-item img{display:block;width:100%; height: 335px;}

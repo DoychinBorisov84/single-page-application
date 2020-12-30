@@ -1,19 +1,13 @@
 <?php
 session_start();
 
-// include 'customFunctions/db_config.php';
-include 'customFunctions/config.php';
-include 'classes/Database.class.php';
+include_once 'customFunctions/config.php';
+require_once 'classes/Database.class.php';
 
 $data = $_POST;
 $action = $data['action'];
 $logged_user_id = $data['logged_user_id'];
-// var_dump($data);
-
-
-// $sql = "INSERT INTO user_counter";
 // echo $data['liked'];
-// echo $data['who_clicked'];
 
 $db = new Database();
 

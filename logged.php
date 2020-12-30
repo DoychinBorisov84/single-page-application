@@ -1,8 +1,7 @@
 <?php
 session_start();
-include 'customFunctions/db_config.php'; // db_config_class.php !!!!
-include 'customFunctions/functions.php';
-include 'classes/Database.class.php';
+include_once 'customFunctions/functions.php';
+require_once 'classes/Database.class.php';
 
 // New db-object
 $db = new Database();
@@ -18,7 +17,6 @@ if(isset($_POST['email_login']) && isset($_POST['password_login']) && !empty($_P
 		$user_password_dehashed = password_verify($password_login, $rec_exist['password']); // verify the pass
 		
 		if($user_password_dehashed){
-			// var_dump('here');exit;
 			$_SESSION['id'] = $rec_exist['id'];
 			$_SESSION['email'] = $rec_exist['email'];
 			$_SESSION['firstName'] = $rec_exist['firstName'];
@@ -27,23 +25,24 @@ if(isset($_POST['email_login']) && isset($_POST['password_login']) && !empty($_P
 
 			$db->setUserLogged($email_login, $_SESSION['logged']);
 
-			header("Location: profile.php");				
+			header("Location: profile.php");	
+			exit;			
 		}else{
 			// wrong credentials;
 			$login_error='error_credentials';
-			header("Location: index.php?error=".$login_error);
+			header("Location: index.php?url_action=".$login_error);
 			exit();
 		}		
 	}else{
 		//email not found
 		$login_error='error_exists';
-		header("Location: index.php?error=".$login_error);
+		header("Location: index.php?url_action=".$login_error);
 		exit();
 	}		
 }else{
 	// Direct page access attempt
 	$login_error='error_incorrect_data';	
-	header("Location: index.php?error=".$login_error);
+	header("Location: index.php?url_action=".$login_error);
 	exit();
 }
 

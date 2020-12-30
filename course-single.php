@@ -2,8 +2,7 @@
 session_start();
 
 include_once 'customFunctions/config.php';
-require_once  'customFunctions/db_config.php';
-include 'classes/Database.class.php';
+require_once 'classes/Database.class.php';
 
 $character = $_GET['character'];
 $character_avatar = $character.'_1280.png';

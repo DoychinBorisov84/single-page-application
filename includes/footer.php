@@ -24,18 +24,19 @@
               <li><a href="#" class="nav-link fa fa-github"></a></li>
             </ul>
           </div>
-
+          
         </div>
 
-        <div class="row pt-5 mt-5 text-center">
+        <div class="row  text-center">
           <div class="col-md-12">
-            <div class="border-top pt-5">
+            <div class="border-top pt-3">
             <p>
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://example.com" target="_blank">Web Dev</a>
-      </p>
+              Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> by <a href="https://example.com" target="_blank">Web Dev Co</a>
+            </p>
             </div>
           </div>          
         </div>
+
       </div>
     </footer>
 
@@ -62,4 +63,8 @@
 
   <!-- Include google-jquery cdn and custom js functions -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script> -->
   <script type="text/javascript" src="../customJS/functions.js"></script>
+  
+  

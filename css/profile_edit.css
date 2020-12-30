@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Abel');
 
 html, body {
-  background-image:url('../images/profile2.jpg');
+  background-image:url('../images/profile.jpg');
   /* background: #FCEEB5; */
   font-family: Abel, Arial, Verdana, sans-serif;
 }
@@ -284,3 +284,7 @@ input[type=submit] {
   margin-top: 5px;
 }
 
+.profile_span{
+  font-weight:bold;
+  color:purple;
+}

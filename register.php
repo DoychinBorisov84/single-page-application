@@ -1,17 +1,10 @@
 <?php
 session_start();
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
 
-// TODO : USER NOT GET CREATED , check ddbug
-// var_dump($_POST); exit();
-
-require 'customFunctions/db_config.php';
 require 'customFunctions/functions.php';
 require 'classes/User.class.php';
 
-//Form validation PDO
+// Validate the POST data
 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email_reg']) && isset($_POST['password_reg']) && isset($_POST['repassword']) && !empty($_POST['firstName']) && !empty($_POST['lastName']) && !empty($_POST['email_reg']) && !empty($_POST['password_reg']) && !empty($_POST['repassword'])){
 
 	$firstName = validateData($_POST['firstName']);
@@ -30,30 +23,31 @@ if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['emai
 	if(!$db_exists){	
 		$createDb = $user->createDatabase();
 		$user_create = $user->userCreate($firstName, $lastName, $email, $password_hashed);			
-			$_SESSION['firstName'] = $firstName;
-			$_SESSION['lastName'] = $lastName;		
-			$_SESSION['email'] = $email_reg;
-			$_SESSION['updated_at'] = date('Y-m-d h:i:s');
+		$_SESSION['firstName'] = $firstName;
+		$_SESSION['lastName'] = $lastName;		
+		$_SESSION['email'] = $email_reg;
+		$_SESSION['updated_at'] = date('Y-m-d h:i:s');
 		$message = 'user_registered';		
-		header("Location: index.php?error=".$message."#home-section");				
+		header("Location: index.php?url_action=".$message."#home-section");		
+		exit;		
 	}else{
 		// We have the datatable created, Check if email/user exist	
 		$user_exist = $user->userExist($email_reg);
 		if($user_exist){
 			$message = 'user_exist';
-			header("Location: index.php?error=".$message."#contact-section");
+			header("Location: index.php?url_action=".$message."#contact-section");
 			die('Email exists');
 		}else{
 			// Save the new user
 		    $user_create = $user->userCreate($firstName, $lastName, $email, $password_hashed);
 		    // var_dump($user_create); die;
 		    $message = 'profile_created';
-			header("Location: index.php?error=".$message."#home-section");
+			header("Location: index.php?url_action=".$message."#home-section");
 			die('User created');		     
 		}
 	}	
 }else{	
 	$message='incorrect_data';
-	header("Location: index.php?error=".$message."#contact-section");
-	exit();	
+	header("Location: index.php?url_action=".$message."#contact-section");
+	die('Incorrect data');	
 }
