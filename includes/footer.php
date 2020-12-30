@@ -1,4 +1,3 @@
-<?php ?>
  <footer class="footer-section bg-white">
       <div class="container">
         <div class="row">
@@ -47,7 +46,9 @@
   <script src="../js/jquery-3.5.0.min.js"></script>
   <script src="../js/jquery-migrate-3.0.1.min.js"></script>
   <script src="../js/jquery-ui.js"></script>
-  <script src="../js/popper.min.js"></script>
+    <script src="../js/bootbox.all.js"></script>
+    <script src="../js/bootbox.locales.min.js"></script>
+    <!-- <script src="../js/bootbox.min.js"></script> -->
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/owl.carousel.min.js"></script>
   <script src="../js/jquery.stellar.min.js"></script>
@@ -60,11 +61,14 @@
 
   
   <script src="../js/main.js"></script>
-
+  
   <!-- Include google-jquery cdn and custom js functions -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script> -->
-    <!-- <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script> -->
-  <script type="text/javascript" src="../customJS/functions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="../customJS/functions.js"></script>
   
   
