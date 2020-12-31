@@ -1,10 +1,11 @@
 # User Administration
-Web App for Users Management. Skeleton from html single page template. Added functionality to : 
+Web App for Users Management, started from raw html-skeleton template.
 - create users, CRUD operations for user,adding profile img, etc... into own user panel
-- reset password with email sent
+- reset password with email confirmation sent
 - registered users simple vote system
-- bootbox.js for modal popup messages
-- ajax requests for updating user data into profile, vote counts updates
+- top user of all registered users
+- bootbox.js, jquery, bootstrap used for responsivness, database operations with no reload and modal popup messages
+
 
 ![home](https://user-images.githubusercontent.com/20903369/103422406-f3657180-4ba9-11eb-945b-5e3304642499.png)
 
