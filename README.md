@@ -1,4 +1,4 @@
-# user_administration
+# User Administration
 Web App for Users Management. Skeleton from html single page template. Added functionality to : 
 - create users, CRUD operations for user,adding profile img, etc... into own user panel
 - reset password with email sent
