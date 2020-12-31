@@ -417,7 +417,7 @@ $(document).ready(function(){
     if(logged_arr.length == 0 || logged_arr == undefined ){
       // alert('Only registered users allowed to vote');
       bootbox.alert({
-          message: "Only registered users are allowed",
+          message: "Only registered users are allowed to vote!",
           size: 'small',
           className: 'rubberBand animated'
       });

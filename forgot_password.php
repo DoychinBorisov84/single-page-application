@@ -16,7 +16,7 @@
 </div>
 
 <div id="forgotten-container">
-<h1>Forgotten Account ?</h1>  
+<h1>Forgot Password ?</h1>  
 
 <form method="post" action="reset_email.php">
   <!-- <span id="msg"><?php // echo $_GET['error'] == 'mailNotFound' ? 'Email not found' : ''; ?></span> -->
