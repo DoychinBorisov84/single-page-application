@@ -1,5 +1,6 @@
 # User Administration
 Web App for Users Management, started from raw html-skeleton template.
+Tech Stack: PHP, jQuery, JavaScript, Html/Css, MySql
 - create users, CRUD operations for user,adding profile img, etc... into own user panel
 - reset password with email confirmation sent
 - registered users simple vote system
