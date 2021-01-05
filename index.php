@@ -7,17 +7,19 @@ require_once 'classes/Database.class.php';
 // Database Instance
 $db = new Database();
 
-$user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
-
 $all_users = $db->selectUsersAll();
 
 $top_user = $db->selectUsersAll($topUser=true);
 
-$logged_user = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
+if( isset($_SESSION['email']) ){
+  $user_exist_db = $db->selectUserFromDatabase($_SESSION['email']);
+  $logged_user = $db->checkUserLogged($_SESSION['email'], $_SESSION['logged']);
+}
 
 if(isset($_GET['url_action']) && !empty($_GET['url_action'])){
-$url_action = $_GET['url_action'];
-  
+  $url_action = $_GET['url_action'];
+
+  $help_msg = '';
   switch($url_action){
     case 'error_incorrect_data';
       $help_msg = 'Enter your credentials to access that page!';
@@ -290,7 +292,9 @@ $url_action = $_GET['url_action'];
 <!-- JS section -->
 <script type="text/javascript">
 $(document).ready(function(){  
-  var helpMsg = '<?php echo $help_msg; ?>';  // get the $_GET url-param
+  // var helpMsg = '<?php// echo $help_msg; ?>';  // get the $_GET url-param
+  var helpMsg = '<?php echo isset($help_msg) ? $help_msg : ''; ?>';  // get the $_GET url-param
+
 
   //add the text to the empty input-field for the error message
   if( helpMsg || helpMsg.length != 0 ){
@@ -385,7 +389,9 @@ $(document).ready(function(){
 
 
   // Sesssion user data
-  var logged = '<?php echo json_encode($logged_user); ?>';
+  // var logged = '<?php //echo json_encode($logged_user); ?>';
+  var logged = '<?php echo ( isset($logged_user) ? json_encode($logged_user) : ''); ?>';
+
   var logged_arr = JSON.parse(logged);
   
   // Detect logged user has already liked someone      
