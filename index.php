@@ -392,10 +392,12 @@ $(document).ready(function(){
   // var logged = '<?php //echo json_encode($logged_user); ?>';
   var logged = '<?php echo ( isset($logged_user) ? json_encode($logged_user) : ''); ?>';
 
-  var logged_arr = JSON.parse(logged);
+  if(logged != ''){
+    var logged_arr = JSON.parse(logged); 
+  }
   
   // Detect logged user has already liked someone      
-  if(logged_arr.length !== 0){
+  if( logged_arr && logged_arr.length !== 0){
     var user_id = logged_arr[0].id;
 
     // Extract the liked data from the DB
